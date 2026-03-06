@@ -4,9 +4,9 @@ import ThemedPlaceholderImage from './ThemedPlaceholderImage';
 const AboutSection = ({ title, subtitle, description, imageUrl, videoUrl, imageAlt, reverse = false, onNavigate, variant = 'split' }) => {
     if (variant === 'overlay') {
         return (
-            <section className="py-16 bg-white">
-                <div className="container mx-auto px-6">
-                    <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <section className="py-10 sm:py-16 bg-white">
+                <div className="container mx-auto px-4 sm:px-6">
+                    <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
                         {/* Background Image */}
                         <div className="absolute inset-0 z-0">
                             <img
@@ -19,14 +19,14 @@ const AboutSection = ({ title, subtitle, description, imageUrl, videoUrl, imageA
                                     e.target.src = `https://placehold.co/1920x1080/333333/666666?text=${imageAlt.replace(/\s+/g, '+')}`;
                                 }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
+                            <div className="absolute inset-0 bg-gradient-to-b sm:bg-gradient-to-r from-black/90 via-black/70 to-black/30 sm:to-transparent"></div>
                         </div>
 
                         {/* Content */}
-                        <div className="relative z-10 p-12 md:p-20 max-w-2xl text-left">
-                            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 font-display tracking-tight">{title}</h2>
-                            {subtitle && <h3 className="text-xl md:text-2xl font-semibold text-nepal-red mb-6">{subtitle}</h3>}
-                            <p className="text-gray-200 text-lg leading-relaxed mb-8">{description}</p>
+                        <div className="relative z-10 p-6 sm:p-10 md:p-20 max-w-2xl text-left">
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white mb-3 sm:mb-4 font-display tracking-tight">{title}</h2>
+                            {subtitle && <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-nepal-red mb-4 sm:mb-6">{subtitle}</h3>}
+                            <p className="text-gray-200 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">{description}</p>
                             <button
                                 onClick={(e) => {
                                     e.preventDefault();
@@ -45,11 +45,11 @@ const AboutSection = ({ title, subtitle, description, imageUrl, videoUrl, imageA
     }
 
     return (
-        <section className={`py-16 ${reverse ? 'bg-gray-100' : 'bg-white'}`}>
-            <div className={`container mx-auto px-6 flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12`}>
+        <section className={`py-10 sm:py-16 ${reverse ? 'bg-gray-100' : 'bg-white'}`}>
+            <div className={`container mx-auto px-4 sm:px-6 flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 sm:gap-12`}>
                 <div className="md:w-1/2 text-center md:text-left">
-                    <h2 className="text-3xl font-extrabold text-gray-900 mb-3">{title}</h2>
-                    {subtitle && <h3 className="text-xl font-semibold text-nepal-blue mb-4">{subtitle}</h3>}
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3">{title}</h2>
+                    {subtitle && <h3 className="text-lg sm:text-xl font-semibold text-nepal-blue mb-4">{subtitle}</h3>}
                     <p className="text-gray-600 leading-relaxed mb-6">{description}</p>
                     <button
                         onClick={(e) => {
@@ -66,7 +66,7 @@ const AboutSection = ({ title, subtitle, description, imageUrl, videoUrl, imageA
                         <video
                             src={videoUrl}
                             poster={imageUrl}
-                            className="w-full h-80 object-cover rounded-xl shadow-lg"
+                            className="w-full h-56 sm:h-72 md:h-80 object-cover rounded-xl shadow-lg"
                             controls
                             autoPlay
                             muted
@@ -89,7 +89,7 @@ const AboutSection = ({ title, subtitle, description, imageUrl, videoUrl, imageA
                         <img
                             src={imageUrl}
                             alt={imageAlt}
-                            className="w-full h-80 object-cover rounded-xl shadow-lg"
+                            className="w-full h-56 sm:h-72 md:h-80 object-cover rounded-xl shadow-lg"
                             loading="lazy"
                             decoding="async"
                             onError={(e) => {

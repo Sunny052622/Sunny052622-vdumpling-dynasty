@@ -3,9 +3,9 @@ import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, ExternalLink } from 
 import { OUTLETS, getMapUrl } from '../data';
 
 const Footer = ({ onOpenOutletModal }) => (
-    <footer className="bg-gray-900 text-gray-400 py-12 border-t-4 border-nepal-blue">
-        <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-4 gap-8 mb-10">
+    <footer className="bg-gray-900 text-gray-400 py-8 sm:py-12 border-t-4 border-nepal-blue">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-10">
                 <div>
                     <div className="flex items-center mb-3">
                         <img
@@ -57,10 +57,10 @@ const Footer = ({ onOpenOutletModal }) => (
                 </div>
                 <div>
                     <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
-                    <div className="flex space-x-4">
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook page" className="hover:text-white transition duration-200"><Facebook size={22} /></a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Twitter profile" className="hover:text-white transition duration-200"><Twitter size={22} /></a>
-                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram profile" className="hover:text-white transition duration-200"><Instagram size={22} /></a>
+                    <div className="flex space-x-5">
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook page" className="hover:text-white transition duration-200 p-1"><Facebook size={22} /></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Twitter profile" className="hover:text-white transition duration-200 p-1"><Twitter size={22} /></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram profile" className="hover:text-white transition duration-200 p-1"><Instagram size={22} /></a>
                     </div>
                 </div>
             </div>

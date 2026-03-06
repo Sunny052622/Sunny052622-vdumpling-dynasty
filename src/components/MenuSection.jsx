@@ -1,15 +1,15 @@
 import React from 'react';
 
 const MenuSection = ({ onNavigate, onOpenOutletModal }) => (
-    <section id="menu-home" className="py-16 bg-gray-100">
-        <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-                <h2 className="text-3xl font-extrabold text-gray-900 mb-3">What Are You Craving?</h2>
+    <section id="menu-home" className="py-10 sm:py-16 bg-gray-100">
+        <div className="container mx-auto px-4 sm:px-6">
+            <div className="text-center mb-8 sm:mb-12">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3">What Are You Craving?</h2>
                 <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
                     Explore our signature momos, flavorful thukpas, and other delicious bites inspired by the streets of Kathmandu.
                 </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 text-center">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-10 sm:mb-16 text-center">
                 <div className="p-6 bg-white rounded-lg shadow-md border-b-4 border-nepal-red">
                     <h3 className="text-xl font-bold text-gray-800 mb-3">Dumpling</h3>
                     <p className="text-gray-600">Delicious handcrafted dumplings with various fillings.</p>
@@ -34,12 +34,12 @@ const MenuSection = ({ onNavigate, onOpenOutletModal }) => (
                     See All Dishes
                 </button>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-10 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+            <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-10 bg-white p-5 sm:p-8 rounded-xl shadow-lg border border-gray-100">
                 <div className="md:w-1/2">
                     <img
                         src="/images/menu/jhol-momo-closeup.jpg"
                         alt="Mouth-watering Close-up of Jhol Momos"
-                        className="w-full h-80 object-cover border-2 border-white rounded-lg shadow-md"
+                        className="w-full h-56 sm:h-72 md:h-80 object-cover border-2 border-white rounded-lg shadow-md"
                         loading="lazy"
                         decoding="async"
                         onError={(e) => {

@@ -1,8 +1,15 @@
 import React from 'react';
 import ImageCarousel from './ImageCarousel';
 
+const timelineEvents = [
+    { year: '2023', title: 'Idea Sparked', description: 'All starts with small gathering at home where delicious momos are served.', color: 'nepal-red' },
+    { year: '2023', title: 'Humble Beginnings', description: 'Started with a cloud kitchen in a humble beginning.', color: 'nepal-blue' },
+    { year: '2023', title: 'First Store', description: 'Launched our first store, bringing momos directly to the neighborhood.', color: 'nepal-red' },
+    { year: '2024', title: 'New Shop', description: 'Expanded our reach and opened a new shop to serve more momo lovers.', color: 'nepal-blue' },
+    { year: '2025', title: 'Swiggy Award', description: 'Won the best restaurant award in Swiggy Annual awards. A proud moment!', color: 'nepal-red' },
+];
+
 const JourneySection = () => {
-    // Combine all images into a single array
     const journeyImages = [
         { src: "/images/journey/steaming-process.jpg", alt: "Momos being steamed to perfection" },
         { src: "/images/journey/happy-customers.jpg", alt: "Happy customers enjoying momos" },
@@ -16,72 +23,73 @@ const JourneySection = () => {
     ];
 
     return (
-        <section id="about-journey" className="py-16 bg-white">
-            <div className="container mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-extrabold text-gray-900 mb-3">Our Story: From Dream to Dumpling</h2>
-                    <h3 className="text-xl font-semibold text-nepal-blue mb-4">Bringing Nepali Flavors to Bhubaneswar</h3>
-                    <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <section id="about-journey" className="py-12 sm:py-16 bg-white">
+            <div className="container mx-auto px-4 sm:px-6">
+                <div className="text-center mb-10 sm:mb-16">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3">Our Story: From Dream to Dumpling</h2>
+                    <h3 className="text-lg sm:text-xl font-semibold text-nepal-blue mb-4">Bringing Nepali Flavors to Bhubaneswar</h3>
+                    <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-sm sm:text-base">
                         It started with a craving for authentic momos! Discover our journey of passion, learning, and sharing the incredible tastes of Nepal right here.
                     </p>
                 </div>
-                <div className="mb-16">
-                    <h2 className="text-3xl font-extrabold text-gray-900 mb-12 text-center">Key Moments</h2>
-                    <div className="relative max-w-3xl mx-auto">
+
+                {/* Timeline */}
+                <div className="mb-12 sm:mb-16">
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8 sm:mb-12 text-center">Key Moments</h2>
+
+                    {/* Mobile Timeline (single column, left-aligned) */}
+                    <div className="md:hidden relative max-w-sm mx-auto pl-8">
+                        <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+                        {timelineEvents.map((event, i) => (
+                            <div key={i} className="mb-8 relative">
+                                <div className={`absolute -left-5 w-6 h-6 rounded-full border-4 border-white shadow-md flex items-center justify-center ${
+                                    event.color === 'nepal-red' ? 'bg-nepal-red' : 'bg-nepal-blue'
+                                }`}>
+                                    <span className="text-[8px] font-bold text-white">{i + 1}</span>
+                                </div>
+                                <div className={`bg-white rounded-lg shadow-md px-4 py-3 border-l-4 ${
+                                    event.color === 'nepal-red' ? 'border-nepal-red' : 'border-nepal-blue'
+                                }`}>
+                                    <h3 className="mb-1 font-bold text-gray-800 text-base">{event.year} - {event.title}</h3>
+                                    <p className="text-sm leading-snug text-gray-600">{event.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Desktop Timeline (alternating left/right) */}
+                    <div className="hidden md:block relative max-w-3xl mx-auto">
                         <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-200 transform -translate-x-1/2 rounded-full"></div>
-                        <div className="mb-10 flex justify-between items-center w-full">
-                            <div className="order-1 w-5/12"></div>
-                            <div className="z-10 flex items-center order-1 bg-nepal-red shadow-lg w-8 h-8 rounded-full border-4 border-white"><span className="mx-auto font-bold text-xs text-white">1</span></div>
-                            <div className="order-1 bg-white rounded-lg shadow-md w-5/12 px-6 py-4 border-l-4 border-nepal-red">
-                                <h3 className="mb-1 font-bold text-gray-800 text-lg">2023 - Idea Sparked</h3>
-                                <p className="text-sm leading-snug tracking-wide text-gray-600">All starts with small gathering at home where delicious momos are served.</p>
-                            </div>
-                        </div>
-                        <div className="mb-10 flex justify-between flex-row-reverse items-center w-full">
-                            <div className="order-1 w-5/12"></div>
-                            <div className="z-10 flex items-center order-1 bg-nepal-blue shadow-lg w-8 h-8 rounded-full border-4 border-white"><span className="mx-auto font-bold text-xs text-white">2</span></div>
-                            <div className="order-1 bg-white rounded-lg shadow-md w-5/12 px-6 py-4 border-r-4 border-nepal-blue">
-                                <h3 className="mb-1 font-bold text-gray-800 text-lg">2023 - Humble Beginnings</h3>
-                                <p className="text-sm leading-snug tracking-wide text-gray-600">Started with a cloud kitchen in a humble beginning.</p>
-                            </div>
-                        </div>
-                        <div className="mb-10 flex justify-between items-center w-full">
-                            <div className="order-1 w-5/12"></div>
-                            <div className="z-10 flex items-center order-1 bg-nepal-red shadow-lg w-8 h-8 rounded-full border-4 border-white"><span className="mx-auto font-bold text-xs text-white">3</span></div>
-                            <div className="order-1 bg-white rounded-lg shadow-md w-5/12 px-6 py-4 border-l-4 border-nepal-red">
-                                <h3 className="mb-1 font-bold text-gray-800 text-lg">2023 - First Store</h3>
-                                <p className="text-sm leading-snug tracking-wide text-gray-600">Launched our first store, bringing momos directly to the neighborhood.</p>
-                            </div>
-                        </div>
-                        <div className="mb-10 flex justify-between flex-row-reverse items-center w-full">
-                            <div className="order-1 w-5/12"></div>
-                            <div className="z-10 flex items-center order-1 bg-nepal-blue shadow-lg w-8 h-8 rounded-full border-4 border-white"><span className="mx-auto font-bold text-xs text-white">4</span></div>
-                            <div className="order-1 bg-white rounded-lg shadow-md w-5/12 px-6 py-4 border-r-4 border-nepal-blue">
-                                <h3 className="mb-1 font-bold text-gray-800 text-lg">2024 - New Shop</h3>
-                                <p className="text-sm leading-snug tracking-wide text-gray-600">Expanded our reach and opened a new shop to serve more momo lovers.</p>
-                            </div>
-                        </div>
-                        <div className="mb-10 flex justify-between items-center w-full">
-                            <div className="order-1 w-5/12"></div>
-                            <div className="z-10 flex items-center order-1 bg-nepal-red shadow-lg w-8 h-8 rounded-full border-4 border-white"><span className="mx-auto font-bold text-xs text-white">5</span></div>
-                            <div className="order-1 bg-white rounded-lg shadow-md w-5/12 px-6 py-4 border-l-4 border-nepal-red">
-                                <h3 className="mb-1 font-bold text-gray-800 text-lg">2025 - Swiggy Award</h3>
-                                <p className="text-sm leading-snug tracking-wide text-gray-600">Won the best restaurant award in Swiggy Annual awards. A proud moment!</p>
-                            </div>
-                        </div>
+                        {timelineEvents.map((event, i) => {
+                            const isLeft = i % 2 === 0;
+                            return (
+                                <div key={i} className={`mb-10 flex justify-between ${isLeft ? '' : 'flex-row-reverse'} items-center w-full`}>
+                                    <div className="order-1 w-5/12"></div>
+                                    <div className={`z-10 flex items-center order-1 shadow-lg w-8 h-8 rounded-full border-4 border-white ${
+                                        event.color === 'nepal-red' ? 'bg-nepal-red' : 'bg-nepal-blue'
+                                    }`}>
+                                        <span className="mx-auto font-bold text-xs text-white">{i + 1}</span>
+                                    </div>
+                                    <div className={`order-1 bg-white rounded-lg shadow-md w-5/12 px-6 py-4 ${
+                                        isLeft ? 'border-l-4' : 'border-r-4'
+                                    } ${event.color === 'nepal-red' ? 'border-nepal-red' : 'border-nepal-blue'}`}>
+                                        <h3 className="mb-1 font-bold text-gray-800 text-lg">{event.year} - {event.title}</h3>
+                                        <p className="text-sm leading-snug tracking-wide text-gray-600">{event.description}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 
-                {/* Replaced the two-column grid with a single, center-aligned section */}
-                <div className="max-w-4xl mx-auto mt-16">
+                {/* Journey Carousel */}
+                <div className="max-w-4xl mx-auto mt-10 sm:mt-16">
                     <div className="text-center mb-6">
-                        <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Journey So Far</h2>
-                        <p className="text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Our Journey So Far</h2>
+                        <p className="text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed text-sm sm:text-base">
                             What started in a 90 square feet stall, has reached to several hearts and build a name in this QSR industry. Odisha's first home grown Momo brand and aiming to expand to national and international boundaries.
                         </p>
                     </div>
-
-                    {/* Wider, center-aligned carousel */}
                     <div className="w-full mb-8">
                         <ImageCarousel
                             images={journeyImages}
