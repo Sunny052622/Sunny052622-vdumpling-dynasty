@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --nepal-red: #DC143C;
+  --nepal-blue: #003893;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: #213547;
+  background-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+}
+
+.bg-nepal-red { background-color: var(--nepal-red); }
+.text-nepal-red { color: var(--nepal-red); }
+.border-nepal-red { border-color: var(--nepal-red); }
+.bg-nepal-blue { background-color: var(--nepal-blue); }
+.text-nepal-blue { color: var(--nepal-blue); }
+.border-nepal-blue { border-color: var(--nepal-blue); }
+.ring-nepal-blue:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--nepal-blue);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  border-color: var(--nepal-blue);
+}
