@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Header, Footer, OutletSelectionModal, ImageModal } from './components';
 
@@ -7,6 +7,7 @@ import { Header, Footer, OutletSelectionModal, ImageModal } from './components';
 const HomePage = lazy(() => import('./pages/HomePage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -69,55 +70,40 @@ const AppContent = () => {
     console.log(`User selected outlet: ${outlet}`);
   };
 
-  return (
-    <div className="font-sans text-gray-800 bg-gray-50 min-h-screen flex flex-col">
-      <ScrollToSection />
-      {/* Header is now rendered inside pages or here if common. 
-          Since BlogPage has its own Header/Footer structure in the code I wrote earlier, 
-          I should probably remove Header/Footer from here OR remove them from BlogPage.
-          
-          Wait, BlogPage.jsx has <Header /> and <Footer /> inside it.
-          But HomePage.jsx usually doesn't include Header/Footer if App.jsx did.
-          
-          Let's check HomePage.jsx content. 
-          If HomePage.jsx DOES NOT have Header, I should keep Header here but conditionally render it?
-          Or better, let's make Header common here and remove it from BlogPage.jsx.
-          
-          Actually, let's keep it simple. I'll wrap Routes with Header and Footer here, 
-          and I will need to REMOVE Header/Footer from BlogPage.jsx and BlogPostPage.jsx 
-          in a subsequent step to avoid duplication.
-      */}
-
-      {/* 
-         DECISION: I will render Header/Footer here for all pages. 
-         I will need to edit BlogPage and BlogPostPage to remove their internal Header/Footer.
-      */}
+  // Layout for main site pages (with Header + Footer)
+  const MainLayout = () => (
+    <>
       <Header
         cartItemCount={cartItemCount}
         onOpenOutletModal={openOutletModal}
       />
+      <Outlet />
+      <Footer onOpenOutletModal={openOutletModal} />
+    </>
+  );
+
+  return (
+    <div className="font-sans text-gray-800 bg-gray-50 min-h-screen flex flex-col">
+      <ScrollToSection />
 
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/" element={
-            <HomePage
-              openModal={openImageModal}
-              onOpenOutletModal={openOutletModal}
-            />
-          } />
-          {/* <Route path="/menu" element={
-            <MenuPage
-              cart={cart}
-              onAddToCart={addToCart}
-              onOpenOutletModal={openOutletModal}
-            />
-          } /> */}
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogPostPage onOpenOutletModal={openOutletModal} />} />
+          {/* Standalone page — no Header/Footer (accessed via QR code) */}
+          <Route path="/calculator" element={<CalculatorPage />} />
+
+          {/* Main site pages — with Header + Footer */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={
+              <HomePage
+                openModal={openImageModal}
+                onOpenOutletModal={openOutletModal}
+              />
+            } />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage onOpenOutletModal={openOutletModal} />} />
+          </Route>
         </Routes>
       </Suspense>
-
-      <Footer onOpenOutletModal={openOutletModal} />
 
       {/* Modals */}
       <OutletSelectionModal
