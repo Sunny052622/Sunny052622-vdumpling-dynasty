@@ -1,5 +1,7 @@
 const { Client } = require('pg');
 
+const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:Maababa800@vdd-vip.cjmg4468ylwn.ap-south-1.rds.amazonaws.com:5432/postgres?sslmode=require';
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -19,15 +21,7 @@ exports.handler = async (event) => {
     return { statusCode: 204, headers, body: '' };
   }
 
-  const { DATABASE_URL } = process.env;
-  if (!DATABASE_URL) {
-    console.error('DATABASE_URL not configured');
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: 'Database not configured' }),
-    };
-  }
+  const DATABASE_URL = DB_URL;
 
   let client;
   try {
