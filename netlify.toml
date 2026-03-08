@@ -9,6 +9,10 @@
 [functions]
   directory = "netlify/functions"
 
+# Daily report email — runs at 12:00 AM IST (18:30 UTC)
+[functions."daily-report"]
+  schedule = "30 18 * * *"
+
 [[headers]]
   for = "/*"
   [headers.values]
