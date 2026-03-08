@@ -47,6 +47,22 @@ exports.handler = async (event) => {
     });
     await client.connect();
 
+    // Auto-create table if it doesn't exist
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS vip_registrations (
+        id BIGSERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        date_of_birth DATE NOT NULL,
+        mobile_number TEXT NOT NULL,
+        payment_code TEXT NOT NULL UNIQUE,
+        payment_status TEXT DEFAULT 'pending',
+        registration_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_mobile ON vip_registrations(mobile_number)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_payment_code ON vip_registrations(payment_code)`);
+
     const result = await client.query(
       `INSERT INTO vip_registrations (name, date_of_birth, mobile_number, payment_code, registration_date, created_at)
        VALUES ($1, $2, $3, $4, NOW(), NOW())
