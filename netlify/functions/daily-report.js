@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const https = require('https');
 
 const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:Maababa800@vdd-vip.cjmg4468ylwn.ap-south-1.rds.amazonaws.com:5432/postgres?sslmode=require';
 
@@ -15,9 +16,43 @@ const REPORT_EMAILS = [
 // Sender — Resend free tier default (can change after domain verification)
 const FROM_EMAIL = 'VDD Admin <onboarding@resend.dev>';
 
-// ─── Scheduled: runs at 12:00 AM IST (18:30 UTC previous day) ───
-// Netlify cron schedule is defined in netlify.toml
+// ─── Helper: send POST request via https module ───
+function postJSON(url, data, authToken) {
+  return new Promise((resolve, reject) => {
+    const body = JSON.stringify(data);
+    const parsed = new URL(url);
 
+    const options = {
+      hostname: parsed.hostname,
+      port: 443,
+      path: parsed.pathname,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+        'Authorization': `Bearer ${authToken}`,
+      },
+    };
+
+    const req = https.request(options, (res) => {
+      let responseBody = '';
+      res.on('data', (chunk) => { responseBody += chunk; });
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(responseBody) });
+        } catch {
+          resolve({ status: res.statusCode, data: responseBody });
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.write(body);
+    req.end();
+  });
+}
+
+// ─── Scheduled: runs at 12:00 AM IST (18:30 UTC) ───
 exports.handler = async (event) => {
   const headers = {
     'Content-Type': 'application/json',
@@ -33,8 +68,7 @@ exports.handler = async (event) => {
     });
     await client.connect();
 
-    // Get today's registrations (IST = UTC+5:30)
-    // We query for records created in the last 24 hours
+    // Get registrations from the last 24 hours
     const result = await client.query(
       `SELECT id, name, date_of_birth, mobile_number, payment_code, payment_status, created_at
        FROM vip_registrations
@@ -105,16 +139,16 @@ exports.handler = async (event) => {
 
     <!-- Summary Card -->
     <div style="background: white; padding: 24px 32px; border-bottom: 1px solid #e5e7eb;">
-      <div style="display: flex; align-items: center; gap: 16px;">
-        <div>
+      <table style="width: 100%;"><tr>
+        <td style="vertical-align: top;">
           <p style="margin: 0; font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Date</p>
           <p style="margin: 4px 0 0; font-size: 18px; font-weight: 700; color: #111827;">${today}</p>
-        </div>
-        <div style="margin-left: auto; text-align: right;">
+        </td>
+        <td style="vertical-align: top; text-align: right;">
           <p style="margin: 0; font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">New Registrations</p>
           <p style="margin: 4px 0 0; font-size: 36px; font-weight: 800; color: #DC143C;">${count}</p>
-        </div>
-      </div>
+        </td>
+      </tr></table>
     </div>
 
     <!-- Table or No Data -->
@@ -139,7 +173,7 @@ exports.handler = async (event) => {
       ` : `
         <div style="padding: 48px 32px; text-align: center;">
           <p style="font-size: 18px; color: #9ca3af; margin: 0;">No new registrations today</p>
-          <p style="font-size: 14px; color: #d1d5db; margin: 8px 0 0;">Better luck tomorrow! 🍜</p>
+          <p style="font-size: 14px; color: #d1d5db; margin: 8px 0 0;">Better luck tomorrow!</p>
         </div>
       `}
     </div>
@@ -157,31 +191,22 @@ exports.handler = async (event) => {
 
     // Send email via Resend API
     const subject = count > 0
-      ? `📋 ${count} New VIP Registration${count > 1 ? 's' : ''} — ${today}`
-      : `📋 Daily VIP Report — No new registrations — ${today}`;
+      ? `${count} New VIP Registration${count > 1 ? 's' : ''} - ${today}`
+      : `Daily VIP Report - No new registrations - ${today}`;
 
-    const emailRes = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: REPORT_EMAILS,
-        subject,
-        html: emailHtml,
-      }),
-    });
+    const emailRes = await postJSON('https://api.resend.com/emails', {
+      from: FROM_EMAIL,
+      to: REPORT_EMAILS,
+      subject,
+      html: emailHtml,
+    }, RESEND_API_KEY);
 
-    const emailData = await emailRes.json();
-
-    if (!emailRes.ok) {
-      console.error('Resend API error:', emailData);
+    if (emailRes.status >= 400) {
+      console.error('Resend API error:', JSON.stringify(emailRes.data));
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ error: 'Failed to send email', details: emailData }),
+        body: JSON.stringify({ error: 'Failed to send email', details: emailRes.data }),
       };
     }
 
@@ -193,7 +218,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         success: true,
         registrations: count,
-        emailId: emailData.id,
+        emailId: emailRes.data.id,
         sentTo: REPORT_EMAILS,
       }),
     };
