@@ -1,0 +1,143 @@
+// Manual trigger: call narprafoods.com/.netlify/functions/send-report to send now
+// This is the same as daily-report but callable via HTTP anytime
+const { Client } = require('pg');
+const https = require('https');
+
+const DB_URL = 'postgresql://postgres:Maababa800@vdd-vip.cjmg4468ylwn.ap-south-1.rds.amazonaws.com:5432/postgres?sslmode=require';
+const RESEND_API_KEY = 're_Y7bLXKKY_PxTZSzNN2L42avv9eX3YiY3S';
+
+const REPORT_EMAILS = [
+  'ceo@narparfoods.com',
+  'shobhrajsharma@gmail.com',
+  'ttamasamishra@gmail.com',
+];
+const FROM_EMAIL = 'VDD Admin <onboarding@resend.dev>';
+
+function sendEmail(payload) {
+  return new Promise((resolve, reject) => {
+    const body = JSON.stringify(payload);
+    const req = https.request({
+      hostname: 'api.resend.com',
+      path: '/emails',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+      },
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try { resolve({ status: res.statusCode, data: JSON.parse(data) }); }
+        catch { resolve({ status: res.statusCode, data }); }
+      });
+    });
+    req.on('error', reject);
+    req.write(body);
+    req.end();
+  });
+}
+
+exports.handler = async (event) => {
+  const headers = { 'Content-Type': 'application/json' };
+  let client;
+
+  try {
+    client = new Client({ connectionString: DB_URL, ssl: { rejectUnauthorized: false } });
+    await client.connect();
+
+    const result = await client.query(
+      `SELECT id, name, date_of_birth, mobile_number, payment_code, payment_status, created_at
+       FROM vip_registrations
+       WHERE created_at >= NOW() - INTERVAL '24 hours'
+       ORDER BY created_at DESC`
+    );
+
+    const registrations = result.rows;
+    const count = registrations.length;
+
+    const today = new Date().toLocaleDateString('en-IN', {
+      day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Asia/Kolkata',
+    });
+
+    let tableRows = '';
+    if (count > 0) {
+      registrations.forEach((r, i) => {
+        const dob = r.date_of_birth
+          ? new Date(r.date_of_birth).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+          : '-';
+        const time = r.created_at
+          ? new Date(r.created_at).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' })
+          : '-';
+        const statusColor = r.payment_status === 'paid' ? '#16a34a' : '#d97706';
+        const statusBg = r.payment_status === 'paid' ? '#f0fdf4' : '#fffbeb';
+
+        tableRows += `<tr style="border-bottom: 1px solid #f3f4f6;">
+          <td style="padding: 12px 16px; font-size: 14px; color: #6b7280;">${i + 1}</td>
+          <td style="padding: 12px 16px; font-size: 14px; font-weight: 600; color: #111827;">${r.name}</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #4b5563;">+91 ${r.mobile_number}</td>
+          <td style="padding: 12px 16px; font-size: 14px; color: #4b5563;">${dob}</td>
+          <td style="padding: 12px 16px; font-size: 14px; font-weight: 700; color: #DC143C; font-family: monospace;">${r.payment_code}</td>
+          <td style="padding: 12px 16px;"><span style="font-size: 12px; font-weight: 600; color: ${statusColor}; background: ${statusBg}; padding: 4px 10px; border-radius: 20px;">${r.payment_status || 'pending'}</span></td>
+          <td style="padding: 12px 16px; font-size: 13px; color: #9ca3af;">${time}</td>
+        </tr>`;
+      });
+    }
+
+    const emailHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background-color:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+<div style="max-width:700px;margin:0 auto;padding:32px 16px;">
+  <div style="background:linear-gradient(135deg,#DC143C,#b91c3c);border-radius:16px 16px 0 0;padding:32px;text-align:center;">
+    <h1 style="margin:0;color:white;font-size:24px;font-weight:700;">VDumpling Dynasty</h1>
+    <p style="margin:8px 0 0;color:rgba(255,255,255,0.85);font-size:14px;">Daily VIP Registration Report</p>
+  </div>
+  <div style="background:white;padding:24px 32px;border-bottom:1px solid #e5e7eb;">
+    <table style="width:100%;"><tr>
+      <td style="vertical-align:top;"><p style="margin:0;font-size:13px;color:#6b7280;text-transform:uppercase;">Date</p><p style="margin:4px 0 0;font-size:18px;font-weight:700;color:#111827;">${today}</p></td>
+      <td style="vertical-align:top;text-align:right;"><p style="margin:0;font-size:13px;color:#6b7280;text-transform:uppercase;">New Registrations</p><p style="margin:4px 0 0;font-size:36px;font-weight:800;color:#DC143C;">${count}</p></td>
+    </tr></table>
+  </div>
+  <div style="background:white;border-radius:0 0 16px 16px;overflow:hidden;">
+    ${count > 0 ? `<table style="width:100%;border-collapse:collapse;">
+      <thead><tr style="background:#f9fafb;border-bottom:2px solid #e5e7eb;">
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;">#</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;">Name</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;">Mobile</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;">DOB</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;">Code</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;">Status</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;">Time</th>
+      </tr></thead>
+      <tbody>${tableRows}</tbody>
+    </table>` : `<div style="padding:48px 32px;text-align:center;">
+      <p style="font-size:18px;color:#9ca3af;margin:0;">No new registrations today</p>
+      <p style="font-size:14px;color:#d1d5db;margin:8px 0 0;">Better luck tomorrow!</p>
+    </div>`}
+  </div>
+  <div style="text-align:center;padding:24px 0;">
+    <p style="font-size:12px;color:#9ca3af;margin:0;">Automated report from <a href="https://narprafoods.com/admin" style="color:#DC143C;text-decoration:none;">VDD Admin Dashboard</a></p>
+  </div>
+</div></body></html>`;
+
+    const subject = count > 0
+      ? `${count} New VIP Registration${count > 1 ? 's' : ''} - ${today}`
+      : `Daily VIP Report - No new registrations - ${today}`;
+
+    const emailRes = await sendEmail({ from: FROM_EMAIL, to: REPORT_EMAILS, subject, html: emailHtml });
+
+    if (emailRes.status >= 400) {
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'Email failed', details: emailRes.data }) };
+    }
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ success: true, registrations: count, emailId: emailRes.data.id, sentTo: REPORT_EMAILS }),
+    };
+  } catch (error) {
+    return { statusCode: 500, headers, body: JSON.stringify({ error: error.message }) };
+  } finally {
+    if (client) await client.end().catch(() => {});
+  }
+};

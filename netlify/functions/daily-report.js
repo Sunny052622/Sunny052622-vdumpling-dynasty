@@ -1,10 +1,10 @@
 const { Client } = require('pg');
-const fetch = require('node-fetch');
+const https = require('https');
 
 const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:Maababa800@vdd-vip.cjmg4468ylwn.ap-south-1.rds.amazonaws.com:5432/postgres?sslmode=require';
 
 // Resend API key
-const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_Y7bLXKKY_PxTZSzNN2L42avv9eX3YiY3S';
+const RESEND_API_KEY = 're_Y7bLXKKY_PxTZSzNN2L42avv9eX3YiY3S';
 
 // Email recipients
 const REPORT_EMAILS = [
@@ -13,28 +13,53 @@ const REPORT_EMAILS = [
   'ttamasamishra@gmail.com',
 ];
 
-// Sender — Resend free tier default (can change after domain verification)
+// Sender
 const FROM_EMAIL = 'VDD Admin <onboarding@resend.dev>';
+
+// ─── Helper: POST JSON via https ───
+function sendEmail(payload) {
+  return new Promise((resolve, reject) => {
+    const body = JSON.stringify(payload);
+    const req = https.request({
+      hostname: 'api.resend.com',
+      path: '/emails',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+      },
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(data) });
+        } catch {
+          resolve({ status: res.statusCode, data });
+        }
+      });
+    });
+    req.on('error', reject);
+    req.write(body);
+    req.end();
+  });
+}
 
 // ─── Scheduled: runs at 12:00 AM IST (18:30 UTC) ───
 exports.handler = async (event) => {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-  };
+  const headers = { 'Content-Type': 'application/json' };
 
   let client;
   try {
-    // Step 1: Connect to AWS RDS
-    console.log('Connecting to database...');
+    // Connect to AWS RDS
     client = new Client({
       connectionString: DB_URL,
       ssl: { rejectUnauthorized: false },
     });
     await client.connect();
-    console.log('Database connected');
 
-    // Step 2: Query registrations from last 24 hours
+    // Query registrations from last 24 hours
     const result = await client.query(
       `SELECT id, name, date_of_birth, mobile_number, payment_code, payment_status, created_at
        FROM vip_registrations
@@ -44,9 +69,8 @@ exports.handler = async (event) => {
 
     const registrations = result.rows;
     const count = registrations.length;
-    console.log(`Found ${count} registrations in last 24 hours`);
 
-    // Step 3: Build the email HTML
+    // Build email
     const today = new Date().toLocaleDateString('en-IN', {
       day: '2-digit',
       month: 'long',
@@ -139,38 +163,28 @@ exports.handler = async (event) => {
 </body>
 </html>`;
 
-    // Step 4: Send email via Resend API
     const subject = count > 0
       ? `${count} New VIP Registration${count > 1 ? 's' : ''} - ${today}`
       : `Daily VIP Report - No new registrations - ${today}`;
 
-    console.log('Sending email via Resend...');
-    const emailRes = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: REPORT_EMAILS,
-        subject,
-        html: emailHtml,
-      }),
+    // Send email via Resend API
+    const emailRes = await sendEmail({
+      from: FROM_EMAIL,
+      to: REPORT_EMAILS,
+      subject,
+      html: emailHtml,
     });
 
-    const emailData = await emailRes.json();
-    console.log('Resend response:', emailRes.status, JSON.stringify(emailData));
-
-    if (!emailRes.ok) {
+    if (emailRes.status >= 400) {
+      console.error('Resend error:', JSON.stringify(emailRes.data));
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ error: 'Failed to send email', status: emailRes.status, details: emailData }),
+        body: JSON.stringify({ error: 'Email send failed', details: emailRes.data }),
       };
     }
 
-    console.log(`Daily report sent successfully to ${REPORT_EMAILS.join(', ')}`);
+    console.log(`Daily report sent: ${count} registrations to ${REPORT_EMAILS.join(', ')}`);
 
     return {
       statusCode: 200,
@@ -178,12 +192,12 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         success: true,
         registrations: count,
-        emailId: emailData.id,
+        emailId: emailRes.data.id,
         sentTo: REPORT_EMAILS,
       }),
     };
   } catch (error) {
-    console.error('Daily report error:', error.message, error.stack);
+    console.error('Daily report error:', error.message);
     return {
       statusCode: 500,
       headers,
