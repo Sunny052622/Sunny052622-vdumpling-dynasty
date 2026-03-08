@@ -8,6 +8,7 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -88,8 +89,9 @@ const AppContent = () => {
 
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          {/* Standalone page — no Header/Footer (accessed via QR code) */}
+          {/* Standalone pages — no Header/Footer */}
           <Route path="/calculator" element={<CalculatorPage />} />
+          <Route path="/admin" element={<AdminPage />} />
 
           {/* Main site pages — with Header + Footer */}
           <Route element={<MainLayout />}>
