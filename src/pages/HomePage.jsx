@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Hero from '../components/Hero';
 import Offers from '../components/Offers';
 import AboutSection from '../components/AboutSection';
@@ -21,6 +22,10 @@ const HomePage = ({ openModal, onOpenOutletModal }) => {
     };
 
     return (
+        <>
+        <Helmet>
+            <link rel="canonical" href="https://narprafoods.com/" />
+        </Helmet>
         <main>
             <Hero onNavigate={handleNavigate} onOpenOutletModal={onOpenOutletModal} />
             <Offers onLearnMore={openModal} />
@@ -49,6 +54,7 @@ const HomePage = ({ openModal, onOpenOutletModal }) => {
             <MenuSection onNavigate={handleNavigate} onOpenOutletModal={onOpenOutletModal} />
             <Contact />
         </main>
+        </>
     );
 };
 
