@@ -26,10 +26,23 @@ const ResultsScreen = ({ results, reset, goToRegistration }) => {
           <span className="font-semibold text-nepal-red">+{formatCurrency(grossSavings)}</span>
         </div>
 
-        {/* Card Fee */}
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">One-time Card Fee</span>
-          <span className="font-semibold text-red-500">-{formatCurrency(CARD_FEE)}</span>
+        {/* Card Fee Breakup */}
+        <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">One-time Card Fee Breakup</p>
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">Card Fee</span>
+              <span className="text-sm font-medium text-gray-800">₹255.00</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">GST (18%)</span>
+              <span className="text-sm font-medium text-gray-800">₹45.90 <span className="text-gray-400 text-xs">(≈ ₹46)</span></span>
+            </div>
+            <div className="pt-2 border-t border-dashed border-gray-200 flex justify-between items-center">
+              <span className="text-sm font-semibold text-gray-700">Total</span>
+              <span className="font-bold text-red-500">-{formatCurrency(CARD_FEE)}</span>
+            </div>
+          </div>
         </div>
 
         <div className="pt-4 border-t border-gray-100 border-dashed" />

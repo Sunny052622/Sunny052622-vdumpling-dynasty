@@ -80,9 +80,9 @@ const PaymentScreen = ({ registration, registrationId, paymentCode, goBackToRegi
       <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
         <h3 className="font-semibold text-green-800 mb-2 text-sm">What you get:</h3>
         <ul className="text-sm text-green-700 space-y-1.5">
-          <li className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-            10% discount on every order for 1 year
+          <li className="flex items-start gap-2">
+            <svg className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+            <span>10% discount on orders above ₹155 <span className="text-green-600 font-medium">[including GST]</span></span>
           </li>
           <li className="flex items-center gap-2">
             <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
@@ -92,7 +92,17 @@ const PaymentScreen = ({ registration, registrationId, paymentCode, goBackToRegi
             <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
             Priority access to new menu items
           </li>
+          <li className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+            Atleast 25% off on your birthday
+          </li>
         </ul>
+        <div className="mt-3 pt-3 border-t border-green-200">
+          <p className="text-xs text-green-600 flex items-center gap-1.5">
+            <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Card activation takes 24 hours after payment
+          </p>
+        </div>
       </div>
 
       {/* Error */}

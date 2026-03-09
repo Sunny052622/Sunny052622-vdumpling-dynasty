@@ -47,6 +47,7 @@ const RegistrationScreen = ({ goBackToResults, submitRegistration, isSubmitting 
         <div>
           <label htmlFor="customerDOB" className="block text-sm font-medium text-gray-700 mb-2">
             Date of Birth
+            <span className="ml-1 text-xs font-normal text-nepal-red">[ Avail atleast 25% off on your birthdays ]</span>
           </label>
           <input
             type="date"
