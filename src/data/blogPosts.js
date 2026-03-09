@@ -190,5 +190,48 @@ export const blogPosts = [
             description: 'VDumpling Dynasty is Bhubaneswar\'s top-rated momo spot. Winner of Best Momo awards. Visit us in Patia and Saheed Nagar.',
             keywords: 'best momo award, top rated restaurants bhubaneswar, famous food places'
         }
+    },
+    {
+        id: 8,
+        slug: 'odia-women-vdumpling-dynasty-swiggy-award',
+        title: 'Two Odia Women From Bhubaneswar Beat 70,000 Businesses to Win Swiggy\'s National Entrepreneur Award',
+        excerpt: 'Lipsa Satapathy and Tamasa Mishra, founders of VDumpling Dynasty, emerged among the top 28 women-led brands nationally in Swiggy\'s "She The Change" initiative — putting Odisha\'s best momo brand on India\'s food-tech map.',
+        content: `
+            <p><strong>Bhubaneswar, March 2026</strong> — In a landmark moment for <strong>Odisha's food industry</strong>, two young <strong>Odia women entrepreneurs</strong> have put the state firmly on the national food-tech map. <strong>Lipsa Satapathy</strong> and <strong>Tamasa Mishra</strong>, the founders of <strong>VDumpling Dynasty (VDD)</strong>, have been named among the top 28 women-led brands in India — selected from over <strong>70,000 businesses</strong> — as part of Swiggy's prestigious <strong>"She The Change"</strong> Entrepreneur of the Year Award.</p>
+
+            <h3>From an 80 Sq. Ft. Shed to Odisha's Best Momo Brand</h3>
+            <p>The VDumpling Dynasty story began in 2023 in a tiny <strong>80 square foot shed in Kalinganagar, Bhubaneswar</strong>. What started as a passion project by two Odia women with a love for authentic Pan-Asian flavours has since grown into one of the <strong>best momo brands in Odisha</strong>. Today, VDD operates <strong>four outlets across Bhubaneswar</strong> — in <strong>Patia</strong>, <strong>Saheed Nagar</strong>, and near <strong>KIIT</strong> — and has served over <strong>1,00,000 plates</strong> between FY25 and FY26.</p>
+
+            <h3>A Bold Leap: From Deloitte to Dumplings</h3>
+            <p>Co-founder <strong>Lipsa Satapathy</strong> made a bold decision in 2024 when she left her corporate position at <strong>Deloitte</strong> to focus full-time on scaling the business. It was a risk that paid off spectacularly. Together with <strong>Tamasa Mishra</strong>, the duo built not just a food brand, but a movement — one that champions <strong>women-led entrepreneurship in Bhubaneswar</strong> and across Odisha.</p>
+
+            <h3>Powered by Women: An All-Women Production Facility</h3>
+            <p>What makes VDumpling Dynasty truly stand apart from every other <strong>momo restaurant in Bhubaneswar</strong> is its commitment to empowering women. The brand runs an <strong>all-women production factory</strong>, creating employment opportunities for women in Odisha's food sector. Every momo you enjoy at VDD is crafted by skilled women — from dough preparation to the signature hand-folding technique that makes VDD's thin-skinned dumplings the <strong>best momos in Bhubaneswar</strong>.</p>
+
+            <h3>Why Swiggy Chose VDumpling Dynasty</h3>
+            <p>Swiggy's "She The Change" initiative is designed to recognise and uplift <strong>women-led food businesses</strong> across India. Out of 70,000 participating businesses nationwide, VDD stood out for its:</p>
+            <ul>
+                <li><strong>Rapid growth</strong> — from a single shed to four outlets in under three years</li>
+                <li><strong>Authentic QSR model</strong> — quick service restaurant format with <strong>authentic Nepali and Pan-Asian flavours</strong></li>
+                <li><strong>Social impact</strong> — all-women production, local sourcing, and community empowerment</li>
+                <li><strong>Customer love</strong> — consistently rated among the <strong>best momo spots in Bhubaneswar</strong> on Swiggy, Zomato, and Google</li>
+            </ul>
+
+            <h3>Odisha Pride: What This Means for the State</h3>
+            <p>This recognition is not just for VDumpling Dynasty — it is a proud moment for every <strong>Odia entrepreneur</strong> and every food lover in <strong>Bhubaneswar</strong>. It proves that world-class food brands can be born right here in Odisha, built by local talent, and compete at the national stage. For anyone searching for the <strong>best momo in Odisha</strong> or <strong>authentic dumplings near me</strong>, VDD is now nationally validated.</p>
+
+            <h3>What's Next: Expanding Across Eastern India</h3>
+            <p>With this national recognition fuelling their ambition, Lipsa and Tamasa have their sights set on expanding <strong>VDumpling Dynasty across Eastern India</strong>. New outlets, new cities, and the same unwavering commitment to <strong>authentic taste</strong> and <strong>women empowerment</strong>. The dynasty is just getting started.</p>
+
+            <p><strong>Visit VDumpling Dynasty</strong> at our outlets in <strong>Patia</strong>, <strong>Saheed Nagar</strong>, and <strong>KIIT area</strong> in Bhubaneswar. Order on <strong>Swiggy</strong> or <strong>Zomato</strong>, or walk in for the <strong>best momo experience in Odisha</strong>.</p>
+        `,
+        author: 'VDD Founders',
+        date: 'March 7, 2026',
+        image: '/images/blog/blog-7-award.jpg',
+        seo: {
+            title: 'Odia Women Beat 70,000 Businesses to Win Swiggy Award | VDumpling Dynasty Bhubaneswar',
+            description: 'Lipsa Satapathy & Tamasa Mishra of VDumpling Dynasty win Swiggy She The Change award. Best momo brand in Bhubaneswar, Odisha. Read their inspiring story.',
+            keywords: 'odia women entrepreneurs, VDumpling Dynasty, VDD, best momo in bhubaneswar, best momo in odisha, swiggy entrepreneur award, she the change, women led food business bhubaneswar, momo brand odisha, best momos patia, saheed nagar momo, pan asian food bhubaneswar, narpar foods, odia girls swiggy award, authentic nepali momo odisha, momo near me bhubaneswar'
+        }
     }
 ];

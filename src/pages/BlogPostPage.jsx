@@ -24,19 +24,50 @@ const BlogPostPage = ({ onOpenOutletModal }) => {
                 <title>{post.seo.title}</title>
                 <meta name="description" content={post.seo.description} />
                 <meta name="keywords" content={post.seo.keywords} />
+                <link rel="canonical" href={`https://narprafoods.com/blog/${post.slug}`} />
 
                 {/* Open Graph / Facebook */}
                 <meta property="og:type" content="article" />
                 <meta property="og:title" content={post.seo.title} />
                 <meta property="og:description" content={post.seo.description} />
                 <meta property="og:image" content={window.location.origin + post.image} />
-                <meta property="og:url" content={window.location.href} />
+                <meta property="og:url" content={`https://narprafoods.com/blog/${post.slug}`} />
 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={post.seo.title} />
                 <meta name="twitter:description" content={post.seo.description} />
                 <meta name="twitter:image" content={window.location.origin + post.image} />
+
+                {/* Article Structured Data (JSON-LD) */}
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "NewsArticle",
+                        "headline": post.seo.title,
+                        "description": post.seo.description,
+                        "image": `https://narprafoods.com${post.image}`,
+                        "datePublished": post.date,
+                        "author": {
+                            "@type": "Organization",
+                            "name": "VDumpling Dynasty",
+                            "url": "https://narprafoods.com"
+                        },
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "VDumpling Dynasty",
+                            "url": "https://narprafoods.com",
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": "https://narprafoods.com/images/logo-circle.png"
+                            }
+                        },
+                        "mainEntityOfPage": {
+                            "@type": "WebPage",
+                            "@id": `https://narprafoods.com/blog/${post.slug}`
+                        }
+                    })}
+                </script>
             </Helmet>
 
             <main className="flex-grow container mx-auto px-4 py-8 mt-20">
