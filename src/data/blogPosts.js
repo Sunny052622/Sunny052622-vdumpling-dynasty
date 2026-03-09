@@ -181,6 +181,8 @@ export const blogPosts = [
             </ul>
 
             <p>We owe it all to our loyal customers in <strong>Patia</strong> and <strong>Saheed Nagar</strong>. Thank you for making us your #1 choice for dumplings!</p>
+
+            <p><strong>Update:</strong> In March 2026, VDumpling Dynasty was named among India's <strong>Top 28 Women-Led Brands</strong> by Swiggy, beating 70,000+ businesses nationally! <a href="/blog/odia-women-vdumpling-dynasty-swiggy-award" style="color:#DC143C;font-weight:bold;">Read the full story →</a></p>
         `,
         author: 'VDD Team',
         date: 'November 20, 2023',
@@ -224,6 +226,13 @@ export const blogPosts = [
             <p>With this national recognition fuelling their ambition, Lipsa and Tamasa have their sights set on expanding <strong>VDumpling Dynasty across Eastern India</strong>. New outlets, new cities, and the same unwavering commitment to <strong>authentic taste</strong> and <strong>women empowerment</strong>. The dynasty is just getting started.</p>
 
             <p><strong>Visit VDumpling Dynasty</strong> at our outlets in <strong>Patia</strong>, <strong>Saheed Nagar</strong>, and <strong>KIIT area</strong> in Bhubaneswar. Order on <strong>Swiggy</strong> or <strong>Zomato</strong>, or walk in for the <strong>best momo experience in Odisha</strong>.</p>
+
+            <h3>Read More About VDD</h3>
+            <ul>
+                <li><a href="/blog/best-momo-in-bhubaneswar" style="color:#DC143C;">Why VDD is the Best Momo in Bhubaneswar</a></li>
+                <li><a href="/blog/authentic-nepali-taste" style="color:#DC143C;">How We Bring Authentic Nepali Taste to Odisha</a></li>
+                <li><a href="/blog/best-momo-award-story" style="color:#DC143C;">Our Award-Winning Journey</a></li>
+            </ul>
         `,
         author: 'VDD Founders',
         date: 'March 7, 2026',
