@@ -3,6 +3,7 @@ import { useCalculator } from '../../hooks/useCalculator';
 import InputScreen from './InputScreen';
 import ResultsScreen from './ResultsScreen';
 import RegistrationScreen from './RegistrationScreen';
+import PaymentScreen from './PaymentScreen';
 import SuccessScreen from './SuccessScreen';
 import './calculator.css';
 
@@ -34,10 +35,20 @@ const CalculatorCard = () => {
           isSubmitting={calc.isSubmitting}
         />
       )}
+      {calc.screen === 'payment' && (
+        <PaymentScreen
+          registration={calc.registration}
+          registrationId={calc.registrationId}
+          paymentCode={calc.paymentCode}
+          goBackToRegistration={calc.goBackToRegistration}
+        />
+      )}
       {calc.screen === 'success' && (
         <SuccessScreen
           paymentCode={calc.paymentCode}
           registration={calc.registration}
+          paymentVerified={calc.paymentVerified}
+          verifyingPayment={calc.verifyingPayment}
           reset={calc.reset}
         />
       )}

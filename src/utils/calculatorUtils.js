@@ -1,4 +1,4 @@
-export const CARD_FEE = 255;
+export const CARD_FEE = 301;
 export const DISCOUNT_RATE = 0.10;
 export const MONTHS_IN_YEAR = 12;
 export const ANNUAL_RETURN_RATE = 0.12;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatCurrency, getMultiplierMessage } from '../../utils/calculatorUtils';
+import { CARD_FEE, formatCurrency, getMultiplierMessage } from '../../utils/calculatorUtils';
 
 const ResultsScreen = ({ results, reset, goToRegistration }) => {
   if (!results) return null;
@@ -29,7 +29,7 @@ const ResultsScreen = ({ results, reset, goToRegistration }) => {
         {/* Card Fee */}
         <div className="flex justify-between items-center">
           <span className="text-gray-600">One-time Card Fee</span>
-          <span className="font-semibold text-red-500">-₹255.00</span>
+          <span className="font-semibold text-red-500">-{formatCurrency(CARD_FEE)}</span>
         </div>
 
         <div className="pt-4 border-t border-gray-100 border-dashed" />
