@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Header, Footer, OutletSelectionModal, ImageModal } from './components';
+import AnnouncementPopup from './components/AnnouncementPopup';
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -96,10 +97,13 @@ const AppContent = () => {
           {/* Main site pages — with Header + Footer */}
           <Route element={<MainLayout />}>
             <Route path="/" element={
-              <HomePage
-                openModal={openImageModal}
-                onOpenOutletModal={openOutletModal}
-              />
+              <>
+                <HomePage
+                  openModal={openImageModal}
+                  onOpenOutletModal={openOutletModal}
+                />
+                <AnnouncementPopup />
+              </>
             } />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage onOpenOutletModal={openOutletModal} />} />
