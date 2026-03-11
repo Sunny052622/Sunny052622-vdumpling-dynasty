@@ -17,7 +17,7 @@ const Footer = ({ onOpenOutletModal }) => (
                                 e.target.style.display = 'none';
                             }}
                         />
-                        <h3 className="text-2xl font-bold text-white">VDumpling Dynasty</h3>
+                        <h3 className="text-2xl font-bold text-white">Narprabha Foods LLP</h3>
                     </div>
                     <p className="text-sm leading-relaxed">Your spot for authentic Nepali flavors in Bhubaneswar.</p>
                 </div>
