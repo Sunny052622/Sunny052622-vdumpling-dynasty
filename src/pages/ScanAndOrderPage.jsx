@@ -3,6 +3,89 @@ import { Helmet } from 'react-helmet-async';
 import { MapPin, ChevronRight, X } from 'lucide-react';
 import { OUTLETS } from '../data/outlets';
 
+// ─── LAUNCH DATE — change this to go live ───────────────────────────────────
+// Set to midnight IST on April 6 2026. Once this date passes, the countdown
+// disappears automatically and the real page shows.
+const LAUNCH_DATE = new Date('2026-04-06T00:00:00+05:30');
+// ────────────────────────────────────────────────────────────────────────────
+
+// Countdown hook
+function useCountdown(target) {
+  const calc = () => {
+    const diff = target - Date.now();
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, done: true };
+    return {
+      days:    Math.floor(diff / 86400000),
+      hours:   Math.floor((diff % 86400000) / 3600000),
+      minutes: Math.floor((diff % 3600000)  / 60000),
+      seconds: Math.floor((diff % 60000)    / 1000),
+      done: false,
+    };
+  };
+  const [time, setTime] = useState(calc);
+  useEffect(() => {
+    const t = setInterval(() => setTime(calc()), 1000);
+    return () => clearInterval(t);
+  }, [target]);
+  return time;
+}
+
+// Countdown tile
+const Tile = ({ value, label }) => (
+  <div className="flex flex-col items-center">
+    <div
+      className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl font-black text-white tabular-nums"
+      style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.15)' }}
+    >
+      {String(value).padStart(2, '0')}
+    </div>
+    <span className="text-[10px] text-white/40 font-semibold uppercase tracking-widest mt-2">{label}</span>
+  </div>
+);
+
+// Coming soon screen
+const ComingSoon = ({ countdown }) => (
+  <div
+    className="min-h-screen flex flex-col items-center justify-center px-6 text-center"
+    style={{ background: 'linear-gradient(160deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%)' }}
+  >
+    {/* Logo */}
+    <img src="/images/logo-circle.png" alt="VDumpling Dynasty" className="w-14 h-14 mb-6 opacity-90" />
+
+    {/* Teaser copy */}
+    <p className="text-[11px] font-bold text-nepal-red uppercase tracking-[0.3em] mb-3">Something hot is coming</p>
+    <h1 className="text-4xl sm:text-5xl font-black text-white leading-tight mb-2">
+      Scan & Order
+    </h1>
+    <p className="text-white/40 text-sm mb-10 max-w-xs leading-relaxed">
+      Your table, your order — skip the queue and order straight from your phone.
+      <br />We're almost ready.
+    </p>
+
+    {/* Countdown */}
+    <div className="flex items-start gap-3 sm:gap-4 mb-10">
+      <Tile value={countdown.days}    label="Days"    />
+      <span className="text-white/20 text-3xl font-black mt-3">:</span>
+      <Tile value={countdown.hours}   label="Hours"   />
+      <span className="text-white/20 text-3xl font-black mt-3">:</span>
+      <Tile value={countdown.minutes} label="Mins"    />
+      <span className="text-white/20 text-3xl font-black mt-3">:</span>
+      <Tile value={countdown.seconds} label="Secs"    />
+    </div>
+
+    {/* Fun nudge */}
+    <div
+      className="rounded-2xl px-6 py-4 max-w-xs border border-white/10 text-sm text-white/50 leading-relaxed"
+      style={{ background: 'rgba(255,255,255,0.04)' }}
+    >
+      While you wait — ask your server for today's specials.
+      The momos are <span className="text-nepal-red font-semibold">very much</span> live right now.
+    </div>
+
+    <p className="text-white/20 text-[10px] mt-8 tracking-widest uppercase">VDumpling Dynasty</p>
+  </div>
+);
+
 // --- Real menu items ---
 const ALL_ITEMS = [
   'Garlic Noodles',
@@ -135,6 +218,7 @@ const OutletOverlay = ({ isOpen, onClose }) => {
 // --- Main Page ---
 const ScanAndOrderPage = () => {
   const [outletOpen, setOutletOpen] = useState(false);
+  const countdown = useCountdown(LAUNCH_DATE);
 
   // Shuffle items daily, then split into 3 offset lists for staggered cycling
   const [list1, list2, list3] = React.useMemo(() => {
@@ -147,6 +231,19 @@ const ScanAndOrderPage = () => {
       shuffled.slice(third * 2),
     ];
   }, []);
+
+  // Show coming soon until launch date passes
+  if (!countdown.done) {
+    return (
+      <>
+        <Helmet>
+          <title>Coming Soon | VDumpling Dynasty</title>
+          <meta name="robots" content="noindex" />
+        </Helmet>
+        <ComingSoon countdown={countdown} />
+      </>
+    );
+  }
 
   return (
     <>
