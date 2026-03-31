@@ -78,7 +78,7 @@ const ComingSoon = ({ countdown }) => (
       className="rounded-2xl px-6 py-4 max-w-xs border border-white/10 text-sm text-white/50 leading-relaxed"
       style={{ background: 'rgba(255,255,255,0.04)' }}
     >
-      While you wait — ask your server for today's specials.
+      While you wait — ask the biller for today's specials.
       The momos are <span className="text-nepal-red font-semibold">very much</span> live right now.
     </div>
 
