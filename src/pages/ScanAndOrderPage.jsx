@@ -177,18 +177,26 @@ const ScanAndOrderPage = () => {
         </header>
 
         {/* Main content */}
-        <main className="flex-1 max-w-lg mx-auto w-full px-5 py-10 pb-28">
+        <main className="flex-1 max-w-lg mx-auto w-full px-5 py-8 pb-28">
 
-          {/* Label */}
-          <p className="text-[10px] font-semibold text-nepal-red uppercase tracking-[0.25em] mb-6">
-            Today's crowd favourites
-          </p>
+          {/* Live indicator */}
+          <div className="flex items-center gap-2 mb-8">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-nepal-red opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-nepal-red"></span>
+            </span>
+            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.2em]">Live today</p>
+          </div>
 
-          {/* Three staggered cycling names */}
-          <div className="space-y-0 divide-y divide-gray-100">
+          {/* Three labelled slots */}
+          <div className="divide-y divide-gray-100">
 
-            {/* Big hero name */}
-            <div className="py-5">
+            {/* Slot 1 — Most Ordered */}
+            <div className="py-6">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-bold text-nepal-red uppercase tracking-widest">Most Ordered</span>
+                <span className="text-[10px] text-gray-300">↑</span>
+              </div>
               <CyclingName
                 items={list1}
                 intervalMs={3200}
@@ -196,36 +204,43 @@ const ScanAndOrderPage = () => {
               />
             </div>
 
-            {/* Medium name */}
-            <div className="py-5">
+            {/* Slot 2 — Trending Now */}
+            <div className="py-6">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest">Trending Now</span>
+                <span className="text-[10px] text-gray-300">↗</span>
+              </div>
               <CyclingName
                 items={list2}
                 intervalMs={2700}
-                className="text-2xl sm:text-3xl font-bold text-gray-700 leading-tight"
+                className="text-2xl sm:text-3xl font-bold text-gray-800 leading-tight"
               />
             </div>
 
-            {/* Smaller name */}
-            <div className="py-5">
+            {/* Slot 3 — Crowd's Pick */}
+            <div className="py-6">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-bold text-nepal-blue uppercase tracking-widest">Crowd's Pick</span>
+                <span className="text-[10px] text-gray-300">★</span>
+              </div>
               <CyclingName
                 items={list3}
                 intervalMs={3800}
-                className="text-xl sm:text-2xl font-semibold text-gray-400 leading-tight"
+                className="text-xl sm:text-2xl font-semibold text-gray-600 leading-tight"
               />
             </div>
 
           </div>
 
-          {/* Divider + subtle prompt */}
-          <div className="mt-10 flex items-center gap-4">
+          {/* Divider */}
+          <div className="mt-6 flex items-center gap-4">
             <div className="flex-1 h-px bg-gray-100" />
-            <p className="text-[11px] text-gray-300 font-medium tracking-widest uppercase">& much more</p>
+            <p className="text-[10px] text-gray-300 font-medium tracking-widest uppercase">& much more</p>
             <div className="flex-1 h-px bg-gray-100" />
           </div>
 
-          {/* Refreshes daily note */}
-          <p className="text-center text-[10px] text-gray-300 mt-4 tracking-wide">
-            Refreshes daily at midnight
+          <p className="text-center text-[10px] text-gray-300 mt-3 tracking-wide">
+            Updates daily at midnight
           </p>
         </main>
 
