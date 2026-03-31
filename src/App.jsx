@@ -10,6 +10,7 @@ const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
+const ScanAndOrderPage = lazy(() => import('./pages/ScanAndOrderPage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -93,6 +94,7 @@ const AppContent = () => {
           {/* Standalone pages — no Header/Footer */}
           <Route path="/calculator" element={<CalculatorPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/scan-and-order" element={<ScanAndOrderPage />} />
 
           {/* Main site pages — with Header + Footer */}
           <Route element={<MainLayout />}>

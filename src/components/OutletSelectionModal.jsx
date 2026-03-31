@@ -3,11 +3,11 @@ import { X, ChevronDown } from 'lucide-react';
 
 // --- External Website Configuration ---
 const OUTLET_WEBSITES = {
-    kalinganagar: 'https://vdumpling.petpooja.com/', // VDD KV branch
-    patia: 'https://vdumpling.petpooja.com/', // Patia shop
-    saheednagar: 'https://vdumplingdynasty.petpooja.com/menu', // Placeholder for Saheed Nagar
-    cuttack: 'https://vdumpling.petpooja.com/', // VDD Cuttack
-    default: 'https://vdumpling.petpooja.com/' // Fallback URL
+    kalinganagar: 'https://vdumplingdynasty.petpooja.com/menu',
+    patia: 'https://vddynasty.petpooja.com/menu',
+    saheednagar: 'https://vddsaheednagar.petpooja.com/menu',
+    cuttack: 'https://vddynasty.petpooja.com/menu',
+    default: 'https://vdumplingdynasty.petpooja.com/menu',
 };
 
 // --- Helper Functions ---
