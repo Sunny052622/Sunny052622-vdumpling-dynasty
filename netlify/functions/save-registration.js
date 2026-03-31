@@ -1,6 +1,6 @@
 const { Client } = require('pg');
 
-const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:Maababa800@vdd-vip.cjmg4468ylwn.ap-south-1.rds.amazonaws.com:5432/postgres?sslmode=require';
+const DB_URL = process.env.DATABASE_URL;
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {

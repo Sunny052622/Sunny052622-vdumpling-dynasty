@@ -4,7 +4,6 @@
 
 [build.environment]
   NODE_VERSION = "18"
-  DATABASE_URL = "postgresql://postgres:Maababa800@vdd-vip.cjmg4468ylwn.ap-south-1.rds.amazonaws.com:5432/postgres?sslmode=require"
 
 [functions]
   directory = "netlify/functions"

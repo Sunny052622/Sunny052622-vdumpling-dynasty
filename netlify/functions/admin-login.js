@@ -1,9 +1,9 @@
 const crypto = require('crypto');
 
-// Admin credentials — change these to your preferred username/password
-const ADMIN_USERNAME = 'vddadmin';
-const ADMIN_PASSWORD = 'Vdd@2024!';
-const TOKEN_SECRET = 'vdd-admin-secret-key-2024';
+// Admin credentials — set in Netlify environment variables
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const TOKEN_SECRET = process.env.TOKEN_SECRET;
 
 // Generate a simple auth token
 const generateToken = (username) => {

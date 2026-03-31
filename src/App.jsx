@@ -11,6 +11,7 @@ const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 const ScanAndOrderPage = lazy(() => import('./pages/ScanAndOrderPage'));
+const VddElitePage = lazy(() => import('./pages/VddElitePage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -95,6 +96,7 @@ const AppContent = () => {
           <Route path="/calculator" element={<CalculatorPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/scan-and-order" element={<ScanAndOrderPage />} />
+          <Route path="/vdd-elite" element={<VddElitePage />} />
 
           {/* Main site pages — with Header + Footer */}
           <Route element={<MainLayout />}>

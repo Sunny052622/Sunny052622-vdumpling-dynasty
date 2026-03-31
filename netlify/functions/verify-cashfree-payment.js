@@ -2,14 +2,9 @@ const { Client } = require('pg');
 const https = require('https');
 const { CASHFREE_APP_ID, CASHFREE_SECRET } = require('./cashfree-config');
 
-const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:Maababa800@vdd-vip.cjmg4468ylwn.ap-south-1.rds.amazonaws.com:5432/postgres?sslmode=require';
-const RESEND_API_KEY = 're_Y7bLXKKY_PxTZSzNN2L42avv9eX3YiY3S';
-
-const REPORT_EMAILS = [
-  'ceo@narparfoods.com',
-  'shobhrajsharma@gmail.com',
-  'ttamasamishra@gmail.com',
-];
+const DB_URL = process.env.DATABASE_URL;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const REPORT_EMAILS = (process.env.REPORT_EMAILS || '').split(',').map(e => e.trim()).filter(Boolean);
 
 function httpsRequest(method, hostname, path, extraHeaders, body) {
   return new Promise((resolve, reject) => {
