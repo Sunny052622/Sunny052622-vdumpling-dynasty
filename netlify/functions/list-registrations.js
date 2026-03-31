@@ -36,6 +36,20 @@ exports.handler = async (event) => {
     });
     await client.connect();
 
+    // Auto-create table if it doesn't exist (fresh DB)
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS vip_registrations (
+        id BIGSERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        date_of_birth DATE NOT NULL,
+        mobile_number TEXT NOT NULL,
+        payment_code TEXT NOT NULL UNIQUE,
+        payment_status TEXT DEFAULT 'pending',
+        registration_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+
     const result = await client.query(
       `SELECT id, name, date_of_birth, mobile_number, payment_code, payment_status, created_at
        FROM vip_registrations
