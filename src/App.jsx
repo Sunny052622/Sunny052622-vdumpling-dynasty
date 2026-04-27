@@ -12,6 +12,12 @@ const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 const ScanAndOrderPage = lazy(() => import('./pages/ScanAndOrderPage'));
 const VddElitePage = lazy(() => import('./pages/VddElitePage'));
+const MenuPage = lazy(() => import('./pages/MenuPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
+const RefundPage = lazy(() => import('./pages/RefundPage'));
+const ShippingPage = lazy(() => import('./pages/ShippingPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -109,8 +115,15 @@ const AppContent = () => {
                 <AnnouncementPopup />
               </>
             } />
+            <Route path="/menu" element={<MenuPage onOpenOutletModal={openOutletModal} />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage onOpenOutletModal={openOutletModal} />} />
+            {/* Policy pages */}
+            <Route path="/terms"    element={<TermsPage />} />
+            <Route path="/privacy"  element={<PrivacyPage />} />
+            <Route path="/refund"   element={<RefundPage />} />
+            <Route path="/shipping" element={<ShippingPage />} />
+            <Route path="/contact"  element={<ContactPage />} />
           </Route>
         </Routes>
       </Suspense>

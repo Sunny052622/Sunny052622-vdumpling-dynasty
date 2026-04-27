@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero = ({ onNavigate, onOpenOutletModal }) => (
     <section id="home" className="py-12 sm:py-16 md:py-32 bg-gradient-to-b from-white to-gray-100 relative">
@@ -13,11 +14,11 @@ const Hero = ({ onNavigate, onOpenOutletModal }) => (
                 <p className="text-gray-600 mb-6 sm:mb-10 text-base sm:text-lg leading-relaxed">
                     VDumpling Dynasty is a vibrant Quick Service Restaurant (QSR) brand located in India, specializing in authentic Nepalese, Tibetan, and Pan Asian cuisines. Our mission is to bring the rich, diverse flavors of the Himalayas to the urban landscape of India, providing a delightful dining experience that blends tradition with modernity.
                 </p>
-                <button
-                    onClick={onOpenOutletModal}
-                    className="bg-nepal-red text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <Link
+                    to="/menu"
+                    className="inline-block bg-nepal-red text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                     Explore the Menu
-                </button>
+                </Link>
             </div>
             <div className="md:w-1/2">
                 <img

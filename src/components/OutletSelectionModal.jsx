@@ -122,7 +122,7 @@ const OutletSelectionModal = ({ isOpen, onClose, onSelectOutlet }) => {
 
                 <div className="bg-gray-50 px-6 py-4 text-center">
                     <p className="text-gray-600 text-sm">
-                        You'll be redirected to our online menu for ordering
+                        You'll be redirected to your selected outlet's ordering page, powered by Petpooja. Payments are processed securely by Cashfree.
                     </p>
                 </div>
             </div>

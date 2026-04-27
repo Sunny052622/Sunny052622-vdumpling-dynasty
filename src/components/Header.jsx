@@ -57,7 +57,7 @@ const Header = ({ cartItemCount, onOpenOutletModal }) => {
                 {/* Desktop Nav */}
                 <div className="hidden md:flex space-x-6 items-center">
                     <Link to="/" className="text-gray-700 hover:text-nepal-blue transition duration-300 font-medium">Home</Link>
-                    <button onClick={onOpenOutletModal} className="text-gray-700 hover:text-nepal-blue transition duration-300 font-medium">Menu</button>
+                    <Link to="/menu" className="text-gray-700 hover:text-nepal-blue transition duration-300 font-medium">Menu</Link>
                     <Link to="/blog" className="text-gray-700 hover:text-nepal-blue transition duration-300 font-medium">Blog</Link>
                     <button onClick={() => handleScroll('offers')} className="text-gray-700 hover:text-nepal-blue transition duration-300 font-medium">Offers</button>
                     <button onClick={() => handleScroll('about-journey')} className="text-gray-700 hover:text-nepal-blue transition duration-300 font-medium">About</button>
@@ -105,12 +105,13 @@ const Header = ({ cartItemCount, onOpenOutletModal }) => {
                     >
                         Home
                     </Link>
-                    <button
-                        onClick={() => { handleLinkClick(); onOpenOutletModal(); }}
-                        className="block w-full text-left py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-nepal-red rounded-md font-medium transition-colors"
+                    <Link
+                        to="/menu"
+                        onClick={handleLinkClick}
+                        className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-nepal-red rounded-md font-medium transition-colors"
                     >
                         Menu
-                    </button>
+                    </Link>
                     <Link
                         to="/blog"
                         onClick={handleLinkClick}

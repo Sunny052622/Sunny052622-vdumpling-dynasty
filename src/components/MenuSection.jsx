@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MenuSection = ({ onNavigate, onOpenOutletModal }) => (
     <section id="menu-home" className="py-10 sm:py-16 bg-gray-100">
@@ -28,11 +29,11 @@ const MenuSection = ({ onNavigate, onOpenOutletModal }) => (
                 </div>
             </div>
             <div className="text-center mb-16">
-                <button
-                    onClick={onOpenOutletModal}
-                    className="bg-nepal-red text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <Link
+                    to="/menu"
+                    className="inline-block bg-nepal-red text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                     See All Dishes
-                </button>
+                </Link>
             </div>
             <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-10 bg-white p-5 sm:p-8 rounded-xl shadow-lg border border-gray-100">
                 <div className="md:w-1/2">
@@ -59,11 +60,11 @@ const MenuSection = ({ onNavigate, onOpenOutletModal }) => (
                         <div className="flex justify-between"><span className="text-gray-700 font-medium">Garlic Noodles</span><span className="font-bold text-nepal-red">₹155</span></div>
                         <div className="flex justify-between"><span className="text-gray-700 font-medium">Veg Thukpa (Noodle Soup)</span><span className="font-bold text-nepal-red">₹255</span></div>
                     </div>
-                    <button
-                        onClick={onOpenOutletModal}
-                        className="bg-transparent border-2 border-nepal-blue text-nepal-blue px-6 py-2 rounded-full hover:bg-nepal-blue hover:text-white transition duration-300 font-semibold transform hover:-translate-y-0.5">
+                    <Link
+                        to="/menu"
+                        className="inline-block bg-transparent border-2 border-nepal-blue text-nepal-blue px-6 py-2 rounded-full hover:bg-nepal-blue hover:text-white transition duration-300 font-semibold transform hover:-translate-y-0.5">
                         View Full Menu
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

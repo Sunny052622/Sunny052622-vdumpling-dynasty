@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, ExternalLink } from 'lucide-react';
 import { OUTLETS, getMapUrl } from '../data';
 
@@ -25,7 +26,7 @@ const Footer = ({ onOpenOutletModal }) => (
                     <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
                     <ul className="space-y-2 text-sm">
                         <li><a href="#home" className="hover:text-white transition duration-200">Home</a></li>
-                        <li><button onClick={onOpenOutletModal} className="hover:text-white transition duration-200 text-left">Menu</button></li>
+                        <li><Link to="/menu" className="hover:text-white transition duration-200">Menu</Link></li>
                         <li><a href="#offers" className="hover:text-white transition duration-200">Offers</a></li>
                         <li><a href="#about-journey" className="hover:text-white transition duration-200">About</a></li>
                         <li><a href="#contact" className="hover:text-white transition duration-200">Contact</a></li>
@@ -64,8 +65,32 @@ const Footer = ({ onOpenOutletModal }) => (
                     </div>
                 </div>
             </div>
-            <div className="border-t border-gray-700 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; {new Date().getFullYear()} VDumpling Dynasty. All Rights Reserved. Made with ❤️ in India.</p>
+
+            {/* ── Compliance Block ──────────────────────────────────────────── */}
+            <div className="border-t border-gray-700 pt-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-500">
+                    <div className="space-y-1">
+                        <p><span className="text-gray-400 font-medium">Legal Entity:</span> Narprabha Foods LLP</p>
+                        <p><span className="text-gray-400 font-medium">GSTIN:</span> [GSTIN — update before KYC submission]</p>
+                        <p><span className="text-gray-400 font-medium">FSSAI License:</span> [FSSAI No. — update before KYC submission]</p>
+                        <p><span className="text-gray-400 font-medium">Registered Address:</span> Kalinganagar, Bhubaneswar, Odisha — 751003</p>
+                    </div>
+                    <div className="space-y-1 sm:text-right">
+                        <p className="text-gray-500">Online ordering powered by <span className="text-gray-400">Petpooja</span></p>
+                        <p className="text-gray-500">Payments secured by <span className="text-gray-400">Cashfree Payments</span></p>
+                    </div>
+                </div>
+                <div className="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs">
+                    <Link to="/terms"    className="text-gray-500 hover:text-white transition-colors">Terms &amp; Conditions</Link>
+                    <Link to="/privacy"  className="text-gray-500 hover:text-white transition-colors">Privacy Policy</Link>
+                    <Link to="/refund"   className="text-gray-500 hover:text-white transition-colors">Refund Policy</Link>
+                    <Link to="/shipping" className="text-gray-500 hover:text-white transition-colors">Shipping Policy</Link>
+                    <Link to="/contact"  className="text-gray-500 hover:text-white transition-colors">Contact Us</Link>
+                </div>
+            </div>
+
+            <div className="border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+                <p>&copy; {new Date().getFullYear()} Narprabha Foods LLP. All Rights Reserved. Made with ❤️ in India.</p>
             </div>
         </div>
     </footer>
