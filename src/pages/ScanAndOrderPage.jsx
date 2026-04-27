@@ -6,7 +6,7 @@ import { OUTLETS } from '../data/outlets';
 // ─── LAUNCH DATE — change this to go live ───────────────────────────────────
 // Set to midnight IST on April 6 2026. Once this date passes, the countdown
 // disappears automatically and the real page shows.
-const LAUNCH_DATE = new Date('2026-04-28T00:00:00+05:30');
+const LAUNCH_DATE = new Date('2026-04-27T00:00:00+05:30');
 // ────────────────────────────────────────────────────────────────────────────
 
 // Countdown hook
