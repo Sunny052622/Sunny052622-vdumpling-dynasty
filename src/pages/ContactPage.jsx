@@ -80,8 +80,8 @@ const ContactPage = () => (
           <div className="mt-5 pt-5 border-t border-gray-100">
             <p className="text-xs text-gray-400 uppercase font-semibold tracking-wide mb-1">Legal Entity</p>
             <p className="text-gray-600 text-sm">Narprabha Foods LLP</p>
-            <p className="text-gray-500 text-xs mt-1">GSTIN: [update before KYC submission]</p>
-            <p className="text-gray-500 text-xs">FSSAI: [update before KYC submission]</p>
+            <p className="text-gray-500 text-xs mt-1">GSTIN: 21AAXFN0327N1ZZ</p>
+            <p className="text-gray-500 text-xs">FSSAI: 12025033000662</p>
           </div>
         </div>
 

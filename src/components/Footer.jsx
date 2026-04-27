@@ -71,8 +71,8 @@ const Footer = ({ onOpenOutletModal }) => (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-500">
                     <div className="space-y-1">
                         <p><span className="text-gray-400 font-medium">Legal Entity:</span> Narprabha Foods LLP</p>
-                        <p><span className="text-gray-400 font-medium">GSTIN:</span> [GSTIN — update before KYC submission]</p>
-                        <p><span className="text-gray-400 font-medium">FSSAI License:</span> [FSSAI No. — update before KYC submission]</p>
+                        <p><span className="text-gray-400 font-medium">GSTIN:</span> 21AAXFN0327N1ZZ</p>
+                        <p><span className="text-gray-400 font-medium">FSSAI License:</span> 12025033000662</p>
                         <p><span className="text-gray-400 font-medium">Registered Address:</span> Kalinganagar, Bhubaneswar, Odisha — 751003</p>
                     </div>
                     <div className="space-y-1 sm:text-right">
