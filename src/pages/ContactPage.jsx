@@ -29,8 +29,8 @@ const OUTLETS_CONTACT = [
 const ContactPage = () => (
   <>
     <Helmet>
-      <title>Contact Us | VDumpling Dynasty</title>
-      <meta name="description" content="Get in touch with VDumpling Dynasty. Find our outlet addresses, phone number, and email. Operated by Narprabha Foods LLP." />
+      <title>Contact &amp; Order | VDumpling Dynasty</title>
+      <meta name="description" content="Order from VDumpling Dynasty — call us, visit your nearest outlet, or place a dine-in order. Outlets in Bhubaneswar and Cuttack." />
       <link rel="canonical" href="https://narprafoods.com/contact" />
     </Helmet>
 
@@ -41,8 +41,27 @@ const ContactPage = () => (
           <Link to="/" className="text-nepal-red text-sm font-semibold hover:underline">← Back to Home</Link>
         </div>
 
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Contact Us</h1>
-        <p className="text-gray-500 mb-8">We'd love to hear from you. Reach out through any of the channels below.</p>
+        <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Contact &amp; Order</h1>
+        <p className="text-gray-500 mb-8">Ready to order? Call us or walk into your nearest outlet. We're open every day.</p>
+
+        {/* How to Order */}
+        <div className="bg-nepal-red rounded-2xl p-6 sm:p-8 mb-6 text-white">
+          <h2 className="text-xl font-bold mb-4">How to Order</h2>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 font-bold text-sm">1</div>
+              <p>Browse our <Link to="/menu" className="underline font-semibold">full menu</Link> to pick your favourites</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 font-bold text-sm">2</div>
+              <p>Call <a href="tel:+919040018192" className="underline font-semibold">+91 9040018192</a> or walk into your nearest outlet</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 font-bold text-sm">3</div>
+              <p>Enjoy your freshly made momos!</p>
+            </div>
+          </div>
+        </div>
 
         {/* General Contact */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-6">

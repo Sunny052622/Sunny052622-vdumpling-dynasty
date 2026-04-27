@@ -65,7 +65,7 @@ const Header = ({ cartItemCount, onOpenOutletModal }) => {
                     <button
                         onClick={onOpenOutletModal}
                         className="bg-nepal-red text-white px-5 py-2 rounded-full hover:bg-opacity-90 transition duration-300 flex items-center space-x-2 shadow hover:shadow-md transform hover:-translate-y-0.5"
-                        aria-label="Order Now - Opens external menu"
+                        aria-label="Find our outlets and order"
                     >
                         <ShoppingCart size={18} />
                         <span className="font-semibold">Order Now</span>

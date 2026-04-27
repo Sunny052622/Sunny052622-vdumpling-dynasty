@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Search, X, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { MENU_ITEMS, MENU_CATEGORIES, CATEGORY_LABELS } from '../data/menuData';
 
 // ── Veg / Non-veg / Egg indicator dot ─────────────────────────────────────────
@@ -183,16 +184,16 @@ const MenuPage = ({ onOpenOutletModal }) => {
           )}
         </div>
 
-        {/* ── Fixed bottom Order Online CTA ── */}
+        {/* ── Fixed bottom CTA ── */}
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-100">
           <div className="max-w-3xl mx-auto px-4 py-3">
-            <button
-              onClick={onOpenOutletModal}
+            <Link
+              to="/contact"
               className="w-full bg-nepal-red text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 text-[15px] hover:bg-red-700 transition-colors active:scale-[0.98] shadow-lg shadow-red-100"
             >
               <MapPin className="w-[18px] h-[18px]" />
-              Order Online
-            </button>
+              Find Us &amp; Order
+            </Link>
           </div>
         </div>
 

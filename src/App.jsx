@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { Header, Footer, OutletSelectionModal, ImageModal } from './components';
+import { Header, Footer, ImageModal } from './components';
 import AnnouncementPopup from './components/AnnouncementPopup';
 
 // Lazy load pages for code splitting
@@ -40,35 +40,12 @@ const ScrollToSection = () => {
 };
 
 const AppContent = () => {
-  const [cart, setCart] = useState([]);
-  const [isOutletModalOpen, setIsOutletModalOpen] = useState(false);
+  const navigate = useNavigate();
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [modalImageUrl, setModalImageUrl] = useState('');
 
-  // --- Cart Logic ---
-  const addToCart = (item, quantity) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(cartItem => cartItem.id === item.id);
-      if (existingItem) {
-        return prevCart.map(cartItem =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: Math.max(0, cartItem.quantity + quantity) }
-            : cartItem
-        ).filter(cartItem => cartItem.quantity > 0);
-      } else {
-        if (quantity > 0) {
-          return [...prevCart, { ...item, quantity }];
-        }
-        return prevCart;
-      }
-    });
-  };
-
-  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-  // --- Modal Handlers ---
-  const openOutletModal = () => setIsOutletModalOpen(true);
-  const closeOutletModal = () => setIsOutletModalOpen(false);
+  // "Order Now" navigates to /contact — no external redirect
+  const goToContact = () => navigate('/contact');
 
   const openImageModal = (url) => {
     setModalImageUrl(url);
@@ -76,19 +53,14 @@ const AppContent = () => {
   };
   const closeImageModal = () => setIsImageModalOpen(false);
 
-  const handleOutletSelect = (outlet) => {
-    console.log(`User selected outlet: ${outlet}`);
-  };
-
   // Layout for main site pages (with Header + Footer)
   const MainLayout = () => (
     <>
       <Header
-        cartItemCount={cartItemCount}
-        onOpenOutletModal={openOutletModal}
+        onOpenOutletModal={goToContact}
       />
       <Outlet />
-      <Footer onOpenOutletModal={openOutletModal} />
+      <Footer onOpenOutletModal={goToContact} />
     </>
   );
 
@@ -110,14 +82,14 @@ const AppContent = () => {
               <>
                 <HomePage
                   openModal={openImageModal}
-                  onOpenOutletModal={openOutletModal}
+                  onOpenOutletModal={goToContact}
                 />
                 <AnnouncementPopup />
               </>
             } />
-            <Route path="/menu" element={<MenuPage onOpenOutletModal={openOutletModal} />} />
+            <Route path="/menu" element={<MenuPage onOpenOutletModal={goToContact} />} />
             <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage onOpenOutletModal={openOutletModal} />} />
+            <Route path="/blog/:slug" element={<BlogPostPage onOpenOutletModal={goToContact} />} />
             {/* Policy pages */}
             <Route path="/terms"    element={<TermsPage />} />
             <Route path="/privacy"  element={<PrivacyPage />} />
@@ -127,13 +99,6 @@ const AppContent = () => {
           </Route>
         </Routes>
       </Suspense>
-
-      {/* Modals */}
-      <OutletSelectionModal
-        isOpen={isOutletModalOpen}
-        onClose={closeOutletModal}
-        onSelectOutlet={handleOutletSelect}
-      />
 
       <ImageModal
         isOpen={isImageModalOpen}
