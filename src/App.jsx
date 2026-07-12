@@ -28,12 +28,21 @@ const PageLoader = () => (
 const ScrollToSection = () => {
   const { state } = useLocation();
   useEffect(() => {
-    if (state?.scrollTo) {
+    if (!state?.scrollTo) return;
+    // Retry until the lazy-loaded page has rendered the target section
+    // (QR/redirect landings race the HomePage chunk on cold loads).
+    let tries = 0;
+    let timer;
+    const attempt = () => {
       const element = document.getElementById(state.scrollTo);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+      } else if (++tries < 80) {
+        timer = setTimeout(attempt, 100);
       }
-    }
+    };
+    attempt();
+    return () => clearTimeout(timer);
   }, [state]);
   return null;
 };
