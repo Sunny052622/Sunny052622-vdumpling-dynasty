@@ -11,6 +11,7 @@ const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 const ScanAndOrderPage = lazy(() => import('./pages/ScanAndOrderPage'));
+const EliteCalculatorPage = lazy(() => import('./pages/EliteCalculatorPage'));
 const MenuPage = lazy(() => import('./pages/MenuPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
@@ -89,9 +90,9 @@ const AppContent = () => {
           {/* Standalone pages — no Header/Footer */}
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/scan-and-order" element={<ScanAndOrderPage />} />
-          {/* Retired pages — old links/QRs land on the homepage Elite section */}
-          <Route path="/calculator" element={<Navigate to="/" replace state={{ scrollTo: 'elite-card' }} />} />
-          <Route path="/vdd-elite" element={<Navigate to="/" replace state={{ scrollTo: 'elite-card' }} />} />
+          {/* Standalone guided Elite calculator — the QR-code landing page */}
+          <Route path="/vdd-elite" element={<EliteCalculatorPage />} />
+          <Route path="/calculator" element={<Navigate to="/vdd-elite" replace />} />
 
           {/* Main site pages — with Header + Footer */}
           <Route element={<MainLayout />}>
