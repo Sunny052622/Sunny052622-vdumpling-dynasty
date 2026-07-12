@@ -112,9 +112,9 @@ const BlogPostPage = ({ onOpenOutletModal }) => {
 
                         {/* Call to Action */}
                         <div className="mt-12 bg-yellow-50 rounded-2xl p-8 text-center border border-yellow-100">
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Craving Momos Now?</h3>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Craving Mo:Mo Now?</h3>
                             <p className="text-gray-600 mb-6">
-                                Don't just read about it. Taste the best momos in Bhubaneswar today!
+                                Don't just read about it. Taste the best Mo:Mo in Bhubaneswar today!
                             </p>
                             <button
                                 onClick={onOpenOutletModal}

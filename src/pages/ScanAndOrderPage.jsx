@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MapPin, ChevronRight, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, ChevronRight, X, Info, ArrowLeft } from 'lucide-react';
 import { OUTLETS } from '../data/outlets';
 
 // ─── LAUNCH DATE — change this to go live ───────────────────────────────────
@@ -46,9 +47,17 @@ const Tile = ({ value, label }) => (
 // Coming soon screen
 const ComingSoon = ({ countdown }) => (
   <div
-    className="min-h-screen flex flex-col items-center justify-center px-6 text-center"
+    className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center"
     style={{ background: 'linear-gradient(160deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%)' }}
   >
+    {/* Back to site */}
+    <Link
+      to="/"
+      className="absolute top-5 left-5 inline-flex items-center gap-1.5 text-white/50 hover:text-white text-sm font-semibold transition-colors"
+    >
+      <ArrowLeft size={16} /> Back to site
+    </Link>
+
     {/* Logo */}
     <img src="/images/logo-circle.png" alt="VDumpling Dynasty" className="w-14 h-14 mb-6 opacity-90" />
 
@@ -79,7 +88,7 @@ const ComingSoon = ({ countdown }) => (
       style={{ background: 'rgba(255,255,255,0.04)' }}
     >
       While you wait — ask the biller for today's specials.
-      The momos are <span className="text-nepal-red font-semibold">very much</span> live right now.
+      The Mo:Mo is <span className="text-nepal-red font-semibold">very much</span> live right now.
     </div>
 
     <p className="text-white/20 text-[10px] mt-8 tracking-widest uppercase">VDumpling Dynasty</p>
@@ -126,13 +135,6 @@ function seededShuffle(arr, seed) {
   return a;
 }
 
-const OUTLET_WEBSITES = {
-  kalinganagar: 'https://vdumplingdynasty.petpooja.com/menu',
-  patia: 'https://vddynasty.petpooja.com/menu',
-  saheednagar: 'https://vddsaheednagar.petpooja.com/menu',
-  cuttack: 'https://vddynasty.petpooja.com/menu',
-};
-
 const OUTLET_COLORS = {
   kalinganagar: { hover: 'hover:bg-red-50', text: 'text-nepal-red' },
   patia: { hover: 'hover:bg-blue-50', text: 'text-nepal-blue' },
@@ -173,8 +175,9 @@ const CyclingName = ({ items, intervalMs, className }) => {
 // --- Outlet overlay ---
 const OutletOverlay = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
-  const handleSelect = (id) => {
-    window.open(OUTLET_WEBSITES[id] || OUTLET_WEBSITES.kalinganagar, '_blank', 'noopener,noreferrer');
+  const handleSelect = (outlet) => {
+    if (!outlet.orderUrl) return;
+    window.open(outlet.orderUrl, '_blank', 'noopener,noreferrer');
     onClose();
   };
   return (
@@ -192,10 +195,10 @@ const OutletOverlay = ({ isOpen, onClose }) => {
           <button onClick={onClose} className="text-white/80 hover:text-white p-1" aria-label="Close"><X size={22} /></button>
         </div>
         <div className="p-4 space-y-3">
-          {OUTLETS.map(outlet => {
+          {OUTLETS.filter(o => !o.comingSoon).map(outlet => {
             const c = OUTLET_COLORS[outlet.id] || OUTLET_COLORS.kalinganagar;
             return (
-              <button key={outlet.id} onClick={() => handleSelect(outlet.id)}
+              <button key={outlet.id} onClick={() => handleSelect(outlet)}
                 className={`w-full p-4 border-2 border-gray-200 rounded-xl ${c.hover} transition-all duration-200 text-left group flex items-center gap-3`}>
                 <img src="/images/logo-circle.png" alt="VDD" className="w-10 h-10 flex-shrink-0 group-hover:scale-110 transition-transform" />
                 <div className="flex-1 min-w-0">
@@ -207,8 +210,12 @@ const OutletOverlay = ({ isOpen, onClose }) => {
             );
           })}
         </div>
-        <div className="bg-gray-50 px-4 py-3 text-center">
+        <div className="bg-gray-50 px-4 py-3 text-center space-y-1.5">
           <p className="text-gray-500 text-xs">You'll be redirected to our online menu for ordering</p>
+          <p className="text-amber-700 text-xs font-medium flex items-start justify-center gap-1.5">
+            <Info size={13} className="flex-shrink-0 mt-px" />
+            <span>Loyalty points don't apply on online orders — they're earned only on in-store (POS) billing.</span>
+          </p>
         </div>
       </div>
     </div>
@@ -256,12 +263,21 @@ const ScanAndOrderPage = () => {
         {/* Header */}
         <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100">
           <div className="max-w-lg mx-auto px-5 py-3.5 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <img src="/images/logo-circle.png" alt="VDumpling Dynasty" className="w-9 h-9" />
-              <div>
-                <p className="text-sm font-bold text-gray-900 leading-none">VDumpling Dynasty</p>
-                <p className="text-[10px] text-gray-400 mt-0.5 tracking-wide">What's on today</p>
-              </div>
+            <div className="flex items-center gap-2">
+              <Link
+                to="/"
+                aria-label="Back to VDumpling Dynasty home"
+                className="w-9 h-9 -ml-2 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-gray-100 active:scale-95 transition-all flex-shrink-0"
+              >
+                <ArrowLeft size={19} />
+              </Link>
+              <Link to="/" className="flex items-center gap-2.5">
+                <img src="/images/logo-circle.png" alt="VDumpling Dynasty" className="w-9 h-9" />
+                <div>
+                  <p className="text-sm font-bold text-gray-900 leading-none">VDumpling Dynasty</p>
+                  <p className="text-[10px] text-gray-400 mt-0.5 tracking-wide">What's on today</p>
+                </div>
+              </Link>
             </div>
             <button
               onClick={() => setOutletOpen(true)}
@@ -339,6 +355,20 @@ const ScanAndOrderPage = () => {
           <p className="text-center text-[10px] text-gray-300 mt-3 tracking-wide">
             Updates daily at midnight
           </p>
+
+          {/* Loyalty heads-up */}
+          <div className="mt-8 rounded-2xl bg-amber-50 border border-amber-200 p-4 flex items-start gap-3">
+            <span className="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
+              <Info size={16} />
+            </span>
+            <div>
+              <p className="text-sm font-bold text-amber-900">Heads-up on loyalty points</p>
+              <p className="text-xs text-amber-800/80 mt-1 leading-relaxed">
+                Loyalty points <strong>don't apply</strong> on Scan &amp; Order — they're earned only when you
+                bill at the counter (POS). Use Scan &amp; Order to order online and pick up your food.
+              </p>
+            </div>
+          </div>
         </main>
 
         {/* Fixed bottom CTA */}

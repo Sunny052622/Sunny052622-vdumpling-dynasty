@@ -1,96 +1,123 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, ExternalLink } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, ArrowUpRight } from 'lucide-react';
 import { OUTLETS, getMapUrl } from '../data';
 
-const Footer = ({ onOpenOutletModal }) => (
-    <footer className="bg-gray-900 text-gray-400 py-8 sm:py-12 border-t-4 border-nepal-blue">
-        <div className="container mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-10">
+const Footer = () => (
+    <footer className="relative bg-ink text-white/60 overflow-hidden pb-24 md:pb-10">
+        {/* Prayer flag bunting */}
+        <div className="bunting w-full" aria-hidden="true">
+            {Array.from({ length: 80 }).map((_, i) => <i key={i} />)}
+        </div>
+
+        {/* Giant watermark wordmark */}
+        <div className="pointer-events-none select-none absolute -bottom-6 left-0 right-0 overflow-hidden" aria-hidden="true">
+            <p className="font-display font-extrabold whitespace-nowrap text-[18vw] leading-none text-outline text-center">
+                MO:MO DYNASTY
+            </p>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 pt-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                {/* Brand */}
                 <div>
-                    <div className="flex items-center mb-3">
-                        <img
-                            src="/images/logo-circle.png"
-                            alt="VDumpling Dynasty Logo"
-                            className="w-10 h-10 mr-3"
-                            onError={(e) => {
-                                console.error('Logo failed to load');
-                                e.target.style.display = 'none';
-                            }}
-                        />
-                        <h3 className="text-2xl font-bold text-white">Narprabha Foods LLP</h3>
+                    <div className="flex items-center gap-3 mb-4">
+                        <img src="/images/logo-circle.png" alt="VDumpling Dynasty logo" className="w-12 h-12 rounded-full" />
+                        <div className="leading-tight">
+                            <p className="font-display font-extrabold text-white">VDUMPLING <span className="text-crimson">DYNASTY</span></p>
+                            <p className="text-[10px] tracking-mega uppercase text-white/40 mt-0.5">From Peak to Eat</p>
+                        </div>
                     </div>
-                    <p className="text-sm leading-relaxed">Your spot for authentic Nepali flavors in Bhubaneswar.</p>
+                    <p className="text-sm leading-relaxed">
+                        Odisha's first home-grown Mo:Mo brand — Mo:Mo, dim sum, wok-tossed noodles
+                        &amp; Pan-Asian mains, made fresh daily since 2023.
+                    </p>
+                    <div className="flex items-center gap-3 mt-5">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                           className="w-10 h-10 rounded-full bg-white/5 hover:bg-crimson flex items-center justify-center text-white transition-colors duration-300">
+                            <Instagram size={17} />
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                           className="w-10 h-10 rounded-full bg-white/5 hover:bg-crimson flex items-center justify-center text-white transition-colors duration-300">
+                            <Facebook size={17} />
+                        </a>
+                    </div>
                 </div>
+
+                {/* Explore */}
                 <div>
-                    <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
-                    <ul className="space-y-2 text-sm">
-                        <li><a href="#home" className="hover:text-white transition duration-200">Home</a></li>
-                        <li><Link to="/menu" className="hover:text-white transition duration-200">Menu</Link></li>
-                        <li><a href="#offers" className="hover:text-white transition duration-200">Offers</a></li>
-                        <li><a href="#about-journey" className="hover:text-white transition duration-200">About</a></li>
-                        <li><a href="#contact" className="hover:text-white transition duration-200">Contact</a></li>
+                    <h3 className="text-white font-bold text-sm tracking-mega uppercase mb-4">Explore</h3>
+                    <ul className="space-y-2.5 text-sm">
+                        <li><Link to="/menu" className="hover:text-white transition-colors">Full Menu</Link></li>
+                        <li><Link to="/blog" className="hover:text-white transition-colors">Mo:Mo Stories</Link></li>
+                        <li><Link to="/" state={{ scrollTo: 'elite-card' }} className="hover:text-white transition-colors">VDD Elite Card</Link></li>
+                        <li><Link to="/scan-and-order" className="hover:text-white transition-colors">Scan &amp; Order</Link></li>
+                        <li><Link to="/contact" className="hover:text-white transition-colors">Contact &amp; Franchise</Link></li>
                     </ul>
                 </div>
+
+                {/* Outlets */}
                 <div>
-                    <h4 className="text-lg font-semibold text-white mb-4">Contact</h4>
+                    <h3 className="text-white font-bold text-sm tracking-mega uppercase mb-4">Outlets</h3>
                     <ul className="space-y-3 text-sm">
-                        {OUTLETS.map((outlet) => (
-                            <li key={outlet.id} className="flex items-start space-x-2">
-                                <MapPin size={16} className="text-nepal-red flex-shrink-0 mt-1" />
-                                <div>
-                                    <span className="font-semibold text-white">{outlet.name}:</span>
+                        {OUTLETS.map((o) => (
+                            <li key={o.id}>
+                                {o.comingSoon ? (
+                                    <span className="flex items-start gap-2 text-white/35 cursor-default">
+                                        <MapPin size={14} className="mt-0.5 flex-shrink-0" />
+                                        <span>
+                                            {o.name.replace('VDD ', '')}
+                                            <span className="ml-2 rounded-full bg-lantern/20 text-lantern text-[9px] font-extrabold tracking-widest uppercase px-2 py-0.5 align-middle">Soon</span>
+                                        </span>
+                                    </span>
+                                ) : (
                                     <a
-                                        href={getMapUrl(outlet)}
+                                        href={getMapUrl(o)}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-1 text-gray-400 hover:text-white hover:underline transition-colors"
+                                        className="group flex items-start gap-2 hover:text-white transition-colors"
                                     >
-                                        {outlet.shortAddress}
-                                        <ExternalLink size={12} className="opacity-60" />
+                                        <MapPin size={14} className="text-crimson mt-0.5 flex-shrink-0" />
+                                        <span>
+                                            {o.name.replace('VDD ', '')}
+                                            <ArrowUpRight size={11} className="inline ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        </span>
                                     </a>
-                                </div>
+                                )}
                             </li>
                         ))}
-                        <li className="flex items-center space-x-2"><Phone size={16} className="text-nepal-red flex-shrink-0" /><a href="tel:+919040018192" className="hover:text-white transition-colors">+91 9040018192</a></li>
-                        <li className="flex items-center space-x-2"><Mail size={16} className="text-nepal-red flex-shrink-0" /><a href="mailto:ceo@narprafood.com" className="hover:text-white transition-colors">ceo@narprafood.com</a></li>
                     </ul>
                 </div>
+
+                {/* Contact */}
                 <div>
-                    <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
-                    <div className="flex space-x-5">
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook page" className="hover:text-white transition duration-200 p-1"><Facebook size={22} /></a>
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Twitter profile" className="hover:text-white transition duration-200 p-1"><Twitter size={22} /></a>
-                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram profile" className="hover:text-white transition duration-200 p-1"><Instagram size={22} /></a>
-                    </div>
+                    <h3 className="text-white font-bold text-sm tracking-mega uppercase mb-4">Talk to us</h3>
+                    <ul className="space-y-3 text-sm">
+                        <li>
+                            <a href="tel:+919040018192" className="flex items-center gap-2 hover:text-white transition-colors">
+                                <Phone size={14} className="text-crimson flex-shrink-0" /> +91 90400 18192
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:ceo@narprafood.com" className="flex items-center gap-2 hover:text-white transition-colors">
+                                <Mail size={14} className="text-crimson flex-shrink-0" /> ceo@narprafood.com
+                            </a>
+                        </li>
+                    </ul>
+                    <p className="mt-5 text-xs leading-relaxed text-white/40">
+                        Franchise enquiries welcome — help us take the Dynasty national.
+                    </p>
                 </div>
             </div>
 
-            {/* ── Compliance Block ──────────────────────────────────────────── */}
-            <div className="border-t border-gray-700 pt-6 mb-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-500">
-                    <div className="space-y-1">
-                        <p><span className="text-gray-400 font-medium">Legal Entity:</span> Narprabha Foods LLP</p>
-                        <p><span className="text-gray-400 font-medium">GSTIN:</span> 21AAXFN0327N1ZZ</p>
-                        <p><span className="text-gray-400 font-medium">FSSAI License:</span> 12025033000662</p>
-                        <p><span className="text-gray-400 font-medium">Registered Address:</span> Kalinganagar, Bhubaneswar, Odisha — 751003</p>
-                    </div>
-                    <div className="space-y-1 sm:text-right">
-                        <p className="text-gray-500">Online ordering powered by <span className="text-gray-400">Petpooja</span></p>
-                        <p className="text-gray-500">Payments secured by <span className="text-gray-400">Cashfree Payments</span></p>
-                    </div>
-                </div>
-                <div className="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs">
-                    <Link to="/terms"    className="text-gray-500 hover:text-white transition-colors">Terms &amp; Conditions</Link>
-                    <Link to="/privacy"  className="text-gray-500 hover:text-white transition-colors">Privacy Policy</Link>
-                    <Link to="/refund"   className="text-gray-500 hover:text-white transition-colors">Refund Policy</Link>
-                    <Link to="/shipping" className="text-gray-500 hover:text-white transition-colors">Shipping Policy</Link>
-                    <Link to="/contact"  className="text-gray-500 hover:text-white transition-colors">Contact Us</Link>
-                </div>
-            </div>
-
-            <div className="border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
-                <p>&copy; {new Date().getFullYear()} Narprabha Foods LLP. All Rights Reserved. Made with ❤️ in India.</p>
+            <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40">
+                <p>© {new Date().getFullYear()} Narpra Foods · VDumpling Dynasty. All rights reserved.</p>
+                <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                    <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
+                    <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+                    <Link to="/refund" className="hover:text-white transition-colors">Refunds</Link>
+                    <Link to="/shipping" className="hover:text-white transition-colors">Shipping</Link>
+                </nav>
             </div>
         </div>
     </footer>

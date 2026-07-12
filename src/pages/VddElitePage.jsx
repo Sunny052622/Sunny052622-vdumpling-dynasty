@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Shield, Percent, Gift, Zap, CreditCard, ScanLine, PartyPopper, ChevronDown, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Shield, Percent, Gift, Zap, CreditCard, ScanLine, PartyPopper, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 
 // --- Animated Counter ---
 const AnimatedCounter = ({ target, suffix = '%', duration = 1500 }) => {
@@ -158,8 +159,18 @@ const VddElitePage = () => {
           background: 'linear-gradient(180deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%)',
         }}
       >
+        {/* Back to site */}
+        <div className="max-w-md mx-auto px-4 pt-5">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 text-white/50 hover:text-white text-sm font-semibold transition-colors"
+          >
+            <ArrowLeft size={16} /> Back to site
+          </Link>
+        </div>
+
         {/* --- Hero Section --- */}
-        <section className="pt-12 pb-10 px-4">
+        <section className="pt-7 pb-10 px-4">
           <div className="max-w-md mx-auto text-center">
             {/* Small brand tag */}
             <div className="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/20 rounded-full px-3 py-1 mb-6">
@@ -238,7 +249,7 @@ const VddElitePage = () => {
                 step="1"
                 icon={ScanLine}
                 title="Scan & Pay"
-                description="Scan the QR code at any VDumpling Dynasty outlet and pay ₹301 to join VDDian Elite for 1 year."
+                description="Scan the QR code at any VDumpling Dynasty outlet and pay ₹505 to join VDDian Elite for 1 year."
                 delay={0}
               />
 
@@ -275,7 +286,7 @@ const VddElitePage = () => {
               }}
             >
               <Shield className="w-8 h-8 text-amber-400/60 mx-auto mb-4" />
-              <h2 className="text-xl font-bold text-white mb-3">Join Now at &#8377;301</h2>
+              <h2 className="text-xl font-bold text-white mb-3">Join Now at &#8377;505</h2>
               <p className="text-lg font-semibold text-amber-300/90 mb-2">For 1 Year Membership</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Scan the QR code on the standee at any VDumpling Dynasty outlet to pay and join instantly.<br />

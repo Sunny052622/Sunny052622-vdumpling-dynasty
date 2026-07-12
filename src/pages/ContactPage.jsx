@@ -2,29 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-
-const OUTLETS_CONTACT = [
-  {
-    name: 'VDD Kalinganagar',
-    address: 'Near Anandaban Park, Kalinganagar, Bhubaneswar — 751003',
-    mapUrl: 'https://maps.google.com/?q=VDumpling+Dynasty+Kalinganagar+Bhubaneswar',
-  },
-  {
-    name: 'VDD Patia',
-    address: 'Galaxia Garden, Infocity, Patia, Bhubaneswar — 751024',
-    mapUrl: 'https://maps.google.com/?q=VDumpling+Dynasty+Patia+Bhubaneswar',
-  },
-  {
-    name: 'VDD Saheed Nagar',
-    address: 'Near Water Tank, Saheed Nagar, Bhubaneswar — 751007',
-    mapUrl: 'https://maps.google.com/?q=VDumpling+Dynasty+Saheednagar+Bhubaneswar',
-  },
-  {
-    name: 'VDD Cuttack',
-    address: 'CDA 9, Cuttack — 753014',
-    mapUrl: 'https://maps.google.com/?q=VDumpling+Dynasty+Cuttack',
-  },
-];
+import { OUTLETS, getMapUrl } from '../data';
 
 const ContactPage = () => (
   <>
@@ -58,7 +36,7 @@ const ContactPage = () => (
             </div>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 font-bold text-sm">3</div>
-              <p>Enjoy your freshly made momos!</p>
+              <p>Enjoy your freshly made Mo:Mo!</p>
             </div>
           </div>
         </div>
@@ -108,22 +86,31 @@ const ContactPage = () => (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
           <h2 className="text-xl font-bold text-gray-900 mb-5">Our Outlets</h2>
           <div className="space-y-5">
-            {OUTLETS_CONTACT.map((outlet) => (
-              <div key={outlet.name} className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <MapPin className="w-4 h-4 text-nepal-red" />
+            {OUTLETS.map((outlet) => (
+              <div key={outlet.id} className={`flex items-start gap-3 ${outlet.comingSoon ? 'opacity-70' : ''}`}>
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${outlet.comingSoon ? 'bg-gray-100' : 'bg-red-50'}`}>
+                  <MapPin className={`w-4 h-4 ${outlet.comingSoon ? 'text-gray-400' : 'text-nepal-red'}`} />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">{outlet.name}</p>
-                  <p className="text-gray-500 text-sm mt-0.5">{outlet.address}</p>
-                  <a
-                    href={outlet.mapUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-nepal-red text-xs font-semibold hover:underline mt-1 inline-block"
-                  >
-                    View on Google Maps →
-                  </a>
+                  <p className="font-bold text-gray-900">
+                    {outlet.name}
+                    {outlet.comingSoon && (
+                      <span className="ml-2 rounded-full bg-amber-100 text-amber-700 text-[10px] font-extrabold tracking-widest uppercase px-2.5 py-0.5 align-middle">
+                        Opening Soon
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-gray-500 text-sm mt-0.5">{outlet.shortAddress}</p>
+                  {!outlet.comingSoon && (
+                    <a
+                      href={getMapUrl(outlet)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-nepal-red text-xs font-semibold hover:underline mt-1 inline-block"
+                    >
+                      View on Google Maps →
+                    </a>
+                  )}
                 </div>
               </div>
             ))}

@@ -1,26 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Yatra+One&family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Legacy tokens (older pages still reference these) */
   --nepal-red: #DC143C;
   --nepal-blue: #003893;
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1.5;
+
+  /* Himalayan Night Market system */
+  --ink: #060B1D;
+  --midnight: #0A1633;
+  --midnight-2: #0E1E45;
+  --royal: #003893;
+  --royal-lite: #2E63D8;
+  --crimson: #DC143C;
+  --crimson-deep: #A50F2D;
+  --lantern: #F5A623;
+  --rice: #FAF5EC;
+  --rice-dark: #EFE7D6;
+
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  line-height: 1.55;
   font-weight: 400;
-  color-scheme: light dark;
-  color: #213547;
-  background-color: #ffffff;
+  color-scheme: light;
+  color: #1a2138;
+  background-color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   min-height: 100vh;
+  background-color: var(--ink);
+  overflow-x: hidden;
 }
 
+::selection { background: var(--crimson); color: #fff; }
+
+/* Slim brand scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--crimson-deep); border-radius: 6px; border: 2px solid var(--ink); }
+::-webkit-scrollbar-thumb:hover { background: var(--crimson); }
+
+/* ── Legacy utility classes (older pages) ─────────────────────────────── */
 .bg-nepal-red { background-color: var(--nepal-red); }
 .text-nepal-red { color: var(--nepal-red); }
 .border-nepal-red { border-color: var(--nepal-red); }
@@ -37,3 +65,186 @@ body {
 /* Hide scrollbar but keep scroll functionality */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Film grain ───────────────────────────────────────────────────────── */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  z-index: 3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Steam wisps ──────────────────────────────────────────────────────── */
+@keyframes steam-rise {
+  0%   { transform: translateY(0) translateX(0) scale(0.6); opacity: 0; }
+  15%  { opacity: 0.5; }
+  60%  { opacity: 0.25; }
+  100% { transform: translateY(-46vh) translateX(var(--drift, 24px)) scale(1.5); opacity: 0; }
+}
+.steam {
+  position: absolute;
+  bottom: 0;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.75), rgba(255,255,255,0) 70%);
+  filter: blur(10px);
+  animation: steam-rise var(--dur, 7s) ease-in infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* ── Floating (momo, badges) ──────────────────────────────────────────── */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-14px) rotate(3deg); }
+}
+.float-soft { animation: float-soft 5.5s ease-in-out infinite; }
+
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 22s linear infinite; }
+
+/* ── Marquee ──────────────────────────────────────────────────────────── */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--speed, 28s) linear infinite;
+}
+.marquee-paused:hover .marquee-track { animation-play-state: paused; }
+
+/* ── Scroll reveal ────────────────────────────────────────────────────── */
+.rv {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rv-delay, 0s);
+  will-change: opacity, transform;
+}
+.rv-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; transition: none; }
+  .steam, .float-soft, .marquee-track, .spin-slow { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ── Hero title entrance ──────────────────────────────────────────────── */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(40px) skewY(2deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0); }
+}
+.rise-in {
+  opacity: 0;
+  animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.45); }
+  50%      { box-shadow: 0 0 0 12px rgba(220, 20, 60, 0); }
+}
+.pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.bounce-soft { animation: bounce-soft 1.8s ease-in-out infinite; }
+
+/* ── Elite card — premium 3D presentation ─────────────────────────────── */
+@keyframes card-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.elite-float { animation: card-float 6s ease-in-out infinite; }
+
+@keyframes card-glow {
+  0%, 100% { filter: drop-shadow(0 25px 50px rgba(220, 20, 60, 0.28)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6)); }
+  50%      { filter: drop-shadow(0 25px 60px rgba(245, 166, 35, 0.22)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6)); }
+}
+.elite-glow { animation: card-glow 5s ease-in-out infinite; }
+
+.elite-card-3d {
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  isolation: isolate;
+}
+.elite-card-3d img { display: block; width: 100%; }
+
+/* Sweeping metallic shine */
+.elite-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.16) 46%,
+    rgba(255, 255, 255, 0.34) 50%,
+    rgba(255, 255, 255, 0.16) 54%,
+    transparent 65%
+  );
+  background-size: 280% 100%;
+  background-position: 120% 0;
+  animation: shine-sweep 4.2s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  mix-blend-mode: screen;
+}
+@keyframes shine-sweep {
+  0%, 55%  { background-position: 120% 0; }
+  85%, 100% { background-position: -60% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .elite-float, .elite-glow, .elite-shine { animation: none !important; }
+  .elite-card-3d { transition: none; }
+}
+
+/* ── Prayer flag bunting ──────────────────────────────────────────────── */
+.bunting {
+  display: flex;
+  gap: 6px;
+  overflow: hidden;
+}
+.bunting i {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 26px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  opacity: 0.9;
+}
+.bunting i:nth-child(5n + 1) { background: #2E63D8; }
+.bunting i:nth-child(5n + 2) { background: #f8f8f8; }
+.bunting i:nth-child(5n + 3) { background: #DC143C; }
+.bunting i:nth-child(5n + 4) { background: #2FA05A; }
+.bunting i:nth-child(5n + 5) { background: #F5A623; }
+
+/* ── Dish card tilt ───────────────────────────────────────────────────── */
+.tilt-card { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease; }
+.tilt-card:hover { transform: translateY(-8px) rotate(-1deg) scale(1.015); }
+
+/* ── Big outline type ─────────────────────────────────────────────────── */
+.text-outline {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.16);
+  color: transparent;
+}
+.text-outline-crimson {
+  -webkit-text-stroke: 1.5px rgba(220, 20, 60, 0.4);
+  color: transparent;
+}
+
+/* ── Snap scrolling rows ──────────────────────────────────────────────── */
+.snap-row {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.snap-row > * { scroll-snap-align: start; }
+
+/* Section anchor offset below fixed header */
+[id] { scroll-margin-top: 84px; }

@@ -32,11 +32,11 @@ const ResultsScreen = ({ results, reset, goToRegistration }) => {
           <div className="space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">Card Fee</span>
-              <span className="text-sm font-medium text-gray-800">₹255.00</span>
+              <span className="text-sm font-medium text-gray-800">₹427.97</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-600">GST (18%)</span>
-              <span className="text-sm font-medium text-gray-800">₹45.90 <span className="text-gray-400 text-xs">(≈ ₹46)</span></span>
+              <span className="text-sm font-medium text-gray-800">₹77.03 <span className="text-gray-400 text-xs">(≈ ₹77)</span></span>
             </div>
             <div className="pt-2 border-t border-dashed border-gray-200 flex justify-between items-center">
               <span className="text-sm font-semibold text-gray-700">Total</span>

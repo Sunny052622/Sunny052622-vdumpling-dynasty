@@ -21,7 +21,7 @@ const BlogPage = () => {
                         The Dumpling Chronicles
                     </h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Stories of spice, tradition, and the quest for the perfect momo in Bhubaneswar.
+                        Stories of spice, tradition, and the quest for the perfect Mo:Mo in Bhubaneswar.
                     </p>
                 </div>
 

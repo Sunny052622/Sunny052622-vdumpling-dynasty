@@ -216,7 +216,7 @@ export const blogPosts = [
                 <li><strong>Rapid growth</strong> — from a single shed to four outlets in under three years</li>
                 <li><strong>Authentic QSR model</strong> — quick service restaurant format with <strong>authentic Nepali and Pan-Asian flavours</strong></li>
                 <li><strong>Social impact</strong> — all-women production, local sourcing, and community empowerment</li>
-                <li><strong>Customer love</strong> — consistently rated among the <strong>best momo spots in Bhubaneswar</strong> on Swiggy, Zomato, and Google</li>
+                <li><strong>Customer love</strong> — consistently rated among the <strong>best momo spots in Bhubaneswar</strong> on Swiggy and Google</li>
             </ul>
 
             <h3>Odisha Pride: What This Means for the State</h3>
@@ -225,7 +225,7 @@ export const blogPosts = [
             <h3>What's Next: Expanding Across Eastern India</h3>
             <p>With this national recognition fuelling their ambition, Lipsa and Tamasa have their sights set on expanding <strong>VDumpling Dynasty across Eastern India</strong>. New outlets, new cities, and the same unwavering commitment to <strong>authentic taste</strong> and <strong>women empowerment</strong>. The dynasty is just getting started.</p>
 
-            <p><strong>Visit VDumpling Dynasty</strong> at our outlets in <strong>Patia</strong>, <strong>Saheed Nagar</strong>, and <strong>KIIT area</strong> in Bhubaneswar. Order on <strong>Swiggy</strong> or <strong>Zomato</strong>, or walk in for the <strong>best momo experience in Odisha</strong>.</p>
+            <p><strong>Visit VDumpling Dynasty</strong> at our outlets in <strong>Patia</strong>, <strong>Saheed Nagar</strong>, and <strong>KIIT area</strong> in Bhubaneswar. Order on <strong>Swiggy</strong>, or walk in for the <strong>best momo experience in Odisha</strong>.</p>
 
             <h3>Read More About VDD</h3>
             <ul>

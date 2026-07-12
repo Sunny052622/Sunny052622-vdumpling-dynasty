@@ -47,7 +47,7 @@ async function sendPaymentNotification(customer) {
       <tr><td style="padding:10px 0;font-size:14px;color:#6b7280;">Mobile</td><td style="padding:10px 0;font-size:16px;color:#111827;">+91 ${customer.mobile_number}</td></tr>
       <tr><td style="padding:10px 0;font-size:14px;color:#6b7280;">DOB</td><td style="padding:10px 0;font-size:16px;color:#111827;">${dob}</td></tr>
       <tr><td style="padding:10px 0;font-size:14px;color:#6b7280;">Payment Code</td><td style="padding:10px 0;font-size:16px;font-weight:700;color:#DC143C;font-family:monospace;">${customer.payment_code}</td></tr>
-      <tr><td style="padding:10px 0;font-size:14px;color:#6b7280;">Amount Paid</td><td style="padding:10px 0;font-size:16px;font-weight:700;color:#16a34a;">₹301</td></tr>
+      <tr><td style="padding:10px 0;font-size:14px;color:#6b7280;">Amount Paid</td><td style="padding:10px 0;font-size:16px;font-weight:700;color:#16a34a;">₹505</td></tr>
       <tr><td style="padding:10px 0;font-size:14px;color:#6b7280;">Payment Status</td><td style="padding:10px 0;"><span style="font-size:12px;font-weight:600;color:#16a34a;background:#f0fdf4;padding:4px 12px;border-radius:20px;">PAID</span></td></tr>
       <tr><td style="padding:10px 0;font-size:14px;color:#6b7280;">Time</td><td style="padding:10px 0;font-size:14px;color:#6b7280;">${now}</td></tr>
     </table>

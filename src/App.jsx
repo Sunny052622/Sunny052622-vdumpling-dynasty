@@ -1,17 +1,16 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Header, Footer, ImageModal } from './components';
 import AnnouncementPopup from './components/AnnouncementPopup';
+import MobileActionBar from './components/MobileActionBar';
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
-const CalculatorPage = lazy(() => import('./pages/CalculatorPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
 const ScanAndOrderPage = lazy(() => import('./pages/ScanAndOrderPage'));
-const VddElitePage = lazy(() => import('./pages/VddElitePage'));
 const MenuPage = lazy(() => import('./pages/MenuPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
@@ -54,27 +53,36 @@ const AppContent = () => {
   const closeImageModal = () => setIsImageModalOpen(false);
 
   // Layout for main site pages (with Header + Footer)
-  const MainLayout = () => (
-    <>
-      <Header
-        onOpenOutletModal={goToContact}
-      />
-      <Outlet />
-      <Footer onOpenOutletModal={goToContact} />
-    </>
-  );
+  // Header is fixed — dark pages (/ and /menu) draw under it; light pages get top padding.
+  const MainLayout = () => {
+    const { pathname } = useLocation();
+    const darkPage = pathname === '/' || pathname === '/menu';
+    return (
+      <>
+        <Header
+          onOpenOutletModal={goToContact}
+        />
+        <div className={darkPage ? '' : 'pt-16 sm:pt-20 bg-gray-50'}>
+          <Outlet />
+        </div>
+        <Footer onOpenOutletModal={goToContact} />
+        <MobileActionBar />
+      </>
+    );
+  };
 
   return (
-    <div className="font-sans text-gray-800 bg-gray-50 min-h-screen flex flex-col">
+    <div className="font-sans text-gray-800 bg-ink min-h-screen flex flex-col">
       <ScrollToSection />
 
       <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Standalone pages — no Header/Footer */}
-          <Route path="/calculator" element={<CalculatorPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/scan-and-order" element={<ScanAndOrderPage />} />
-          <Route path="/vdd-elite" element={<VddElitePage />} />
+          {/* Retired pages — old links/QRs land on the homepage Elite section */}
+          <Route path="/calculator" element={<Navigate to="/" replace state={{ scrollTo: 'elite-card' }} />} />
+          <Route path="/vdd-elite" element={<Navigate to="/" replace state={{ scrollTo: 'elite-card' }} />} />
 
           {/* Main site pages — with Header + Footer */}
           <Route element={<MainLayout />}>
