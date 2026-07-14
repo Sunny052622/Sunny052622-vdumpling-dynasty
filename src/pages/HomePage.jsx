@@ -629,8 +629,8 @@ const Community = () => {
    VDD ELITE CARD — full savings projection, same math & layout as the
    original VIP calculator (calculateSavings / SIP / multiplier message).
 ──────────────────────────────────────────────────────────────────────────── */
-// TODO: paste the card purchase link here when ready (Cashfree / payment page).
-const BUY_CARD_URL = '';
+// Reelo purchase link for the VDD Elite card.
+const BUY_CARD_URL = 'https://app.reelo.io/l/kMJK_';
 
 const EliteCalculator = () => {
     const ref = useReveal();

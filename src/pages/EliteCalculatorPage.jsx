@@ -11,8 +11,8 @@ import {
     calculateSavings, calculateSIPFutureValue,
 } from '../utils/calculatorUtils';
 
-// TODO: paste the card purchase link here when ready (same as homepage).
-const BUY_CARD_URL = '';
+// Reelo purchase link for the VDD Elite card.
+const BUY_CARD_URL = 'https://app.reelo.io/l/kMJK_';
 
 const VISIT_PRESETS = [
     { value: 4, label: 'Once a week' },
