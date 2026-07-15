@@ -33,7 +33,7 @@ const Footer = () => (
                         &amp; Pan-Asian mains, made fresh daily since 2023.
                     </p>
                     <div className="flex items-center gap-3 mt-5">
-                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                        <a href="https://www.instagram.com/vdumplingdynasty/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
                            className="w-10 h-10 rounded-full bg-white/5 hover:bg-crimson flex items-center justify-center text-white transition-colors duration-300">
                             <Instagram size={17} />
                         </a>

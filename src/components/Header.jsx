@@ -188,7 +188,7 @@ const Header = ({ onOpenOutletModal }) => {
                                 <Phone size={15} /> +91 90400 18192
                             </a>
                             <span className="flex items-center gap-4">
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-white transition-colors"><Instagram size={18} /></a>
+                                <a href="https://www.instagram.com/vdumplingdynasty/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-white transition-colors"><Instagram size={18} /></a>
                                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-white transition-colors"><Facebook size={18} /></a>
                             </span>
                         </div>

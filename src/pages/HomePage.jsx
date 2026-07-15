@@ -608,7 +608,7 @@ const Community = () => {
                                 your next plate and become part of the wall.
                             </p>
                             <a
-                                href="https://instagram.com"
+                                href="https://www.instagram.com/vdumplingdynasty/"
                                 target="_blank" rel="noopener noreferrer"
                                 className="mt-7 inline-flex items-center gap-2.5 rounded-full bg-white text-ink font-bold px-7 py-3.5 hover:bg-lantern transition-colors active:scale-[0.98]"
                             >
