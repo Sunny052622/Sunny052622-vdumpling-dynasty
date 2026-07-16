@@ -637,7 +637,7 @@ const EliteCalculator = () => {
     const [visits, setVisits] = useState(8);
     const [orderValue, setOrderValue] = useState(300);
 
-    const { yearlySpend, grossSavings, netSavings, multiplier } = calculateSavings(visits, orderValue);
+    const { yearlySpend, grossSavings, birthdaySpend, birthdaySavings, netSavings, multiplier } = calculateSavings(visits, orderValue);
     const sip = calculateSIPFutureValue(netSavings);
     const isPositive = netSavings > 0;
 
@@ -663,6 +663,7 @@ const EliteCalculator = () => {
                         <ul className="rv mt-6 space-y-3 text-white/90 text-[15px] font-medium" style={{ '--rv-delay': '0.3s' }}>
                             <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-crimson flex-shrink-0" /> One-time fee of {formatCurrency(CARD_FEE)} — valid at every outlet</li>
                             <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-lantern flex-shrink-0" /> Flat 10% discount on all your orders</li>
+                            <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-crimson flex-shrink-0" /> 25% off your order on your birthday 🎂</li>
                             <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-royal-lite flex-shrink-0" /> Ready for pickup at your outlet — no shipping</li>
                         </ul>
                     </div>
@@ -715,6 +716,10 @@ const EliteCalculator = () => {
                             <div className="flex justify-between items-center">
                                 <span className="text-white/90 text-[15px]">10% card discount</span>
                                 <span className="font-bold text-emerald-300">+{formatCurrency(grossSavings)}</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                                <span className="text-white/90 text-[15px]">🎂 Birthday treat — 25% off <span className="text-white/50 text-xs">(on ~{formatCurrency(birthdaySpend)})</span></span>
+                                <span className="font-bold text-emerald-300">+{formatCurrency(birthdaySavings)}</span>
                             </div>
 
                             {/* One-time card fee breakup */}

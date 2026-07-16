@@ -35,7 +35,7 @@ const EliteCalculatorPage = () => {
     const [visits, setVisits] = useState(8);
     const [orderValue, setOrderValue] = useState(300);
 
-    const { yearlySpend, grossSavings, netSavings, multiplier } = calculateSavings(visits, orderValue);
+    const { yearlySpend, grossSavings, birthdaySpend, birthdaySavings, netSavings, multiplier } = calculateSavings(visits, orderValue);
     const sip = calculateSIPFutureValue(netSavings);
     const isPositive = netSavings > 0;
 
@@ -81,8 +81,8 @@ const EliteCalculatorPage = () => {
                     </h1>
                     <p className="rise-in text-white/60 text-sm mt-2 leading-relaxed" style={{ '--d': '0.2s' }}>
                         {step < 2
-                            ? 'The VDD Elite card gives a flat 10% off every order. Two quick questions and we\'ll show your yearly savings.'
-                            : `Based on ${visits} visits/month at ~${formatCurrency(orderValue)} each.`}
+                            ? 'The VDD Elite card gives a flat 10% off every order — plus 25% off on your birthday. Two quick questions and we\'ll show your yearly savings.'
+                            : `Based on ${visits} visits/month at ~${formatCurrency(orderValue)} each, plus your birthday treat.`}
                     </p>
 
                     {/* Progress */}
@@ -199,6 +199,10 @@ const EliteCalculatorPage = () => {
                                 <div className="flex justify-between items-center">
                                     <span className="text-white/80 text-[15px]">Elite gives back 10%</span>
                                     <span className="font-bold text-emerald-300">+{formatCurrency(grossSavings)}</span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-white/80 text-[15px]">🎂 Birthday treat — 25% off <span className="text-white/40 text-xs">(on ~{formatCurrency(birthdaySpend)})</span></span>
+                                    <span className="font-bold text-emerald-300">+{formatCurrency(birthdaySavings)}</span>
                                 </div>
                                 <div className="flex justify-between items-center pt-2 border-t border-dashed border-white/15">
                                     <span className="text-white/80 text-[15px]">One-time card fee <span className="text-white/40 text-xs">(incl. GST)</span></span>

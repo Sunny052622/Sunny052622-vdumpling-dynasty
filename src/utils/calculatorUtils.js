@@ -2,13 +2,19 @@ export const CARD_FEE = 505;
 export const DISCOUNT_RATE = 0.10;
 export const MONTHS_IN_YEAR = 12;
 export const ANNUAL_RETURN_RATE = 0.12;
+// Elite members get 25% off their birthday order. Birthday spend is assumed
+// at 2.5× the member's average order value (birthdays are group orders).
+export const BIRTHDAY_SPEND_MULTIPLIER = 2.5;
+export const BIRTHDAY_DISCOUNT_RATE = 0.25;
 
 export function calculateSavings(visits, orderValue) {
   const yearlySpend = visits * orderValue * MONTHS_IN_YEAR;
   const grossSavings = yearlySpend * DISCOUNT_RATE;
-  const netSavings = grossSavings - CARD_FEE;
+  const birthdaySpend = Math.round(orderValue * BIRTHDAY_SPEND_MULTIPLIER);
+  const birthdaySavings = Math.round(birthdaySpend * BIRTHDAY_DISCOUNT_RATE);
+  const netSavings = grossSavings + birthdaySavings - CARD_FEE;
   const multiplier = CARD_FEE > 0 ? netSavings / CARD_FEE : 0;
-  return { yearlySpend, grossSavings, netSavings, multiplier };
+  return { yearlySpend, grossSavings, birthdaySpend, birthdaySavings, netSavings, multiplier };
 }
 
 export function calculateSIPFutureValue(netSavings) {
