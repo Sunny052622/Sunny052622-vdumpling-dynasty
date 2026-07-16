@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Instagram, ArrowUpRight } from 'lucide-react';
 import { OUTLETS, getMapUrl } from '../data';
+import { ELITE_ENABLED } from '../config/features';
 
 const Footer = () => (
     <footer className="relative bg-ink text-white/60 overflow-hidden pb-24 md:pb-10">
@@ -50,7 +51,9 @@ const Footer = () => (
                     <ul className="space-y-2.5 text-sm">
                         <li><Link to="/menu" className="hover:text-white transition-colors">Full Menu</Link></li>
                         <li><Link to="/blog" className="hover:text-white transition-colors">Mo:Mo Stories</Link></li>
-                        <li><Link to="/" state={{ scrollTo: 'elite-card' }} className="hover:text-white transition-colors">VDD Elite Card</Link></li>
+                        {ELITE_ENABLED && (
+                            <li><Link to="/" state={{ scrollTo: 'elite-card' }} className="hover:text-white transition-colors">VDD Elite Card</Link></li>
+                        )}
                         <li><Link to="/scan-and-order" className="hover:text-white transition-colors">Scan &amp; Order</Link></li>
                         <li><Link to="/contact" className="hover:text-white transition-colors">Contact &amp; Franchise</Link></li>
                     </ul>

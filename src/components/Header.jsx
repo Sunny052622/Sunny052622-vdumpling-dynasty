@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { X, Menu, Phone, Instagram, Facebook } from 'lucide-react';
 import OrderOnlineModal from './OrderOnlineModal';
+import { ELITE_ENABLED } from '../config/features';
 
 const NAV_LINKS = [
     { to: '/', label: 'Home' },
@@ -9,7 +10,7 @@ const NAV_LINKS = [
     { to: '/', label: 'Elite', scrollTo: 'elite-card' },
     { to: '/blog', label: 'Stories' },
     { to: '/contact', label: 'Outlets' },
-];
+].filter((l) => ELITE_ENABLED || l.label !== 'Elite');
 
 const Header = ({ onOpenOutletModal }) => {
     const [open, setOpen] = useState(false);

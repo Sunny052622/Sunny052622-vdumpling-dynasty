@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Header, Footer, ImageModal } from './components';
 import AnnouncementPopup from './components/AnnouncementPopup';
 import MobileActionBar from './components/MobileActionBar';
+import { ELITE_ENABLED } from './config/features';
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -90,9 +91,10 @@ const AppContent = () => {
           {/* Standalone pages — no Header/Footer */}
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/scan-and-order" element={<ScanAndOrderPage />} />
-          {/* Standalone guided Elite calculator — the QR-code landing page */}
-          <Route path="/vdd-elite" element={<EliteCalculatorPage />} />
-          <Route path="/calculator" element={<Navigate to="/vdd-elite" replace />} />
+          {/* Standalone guided Elite calculator — the QR-code landing page.
+              While Elite is disabled, QR scans and old links land on the homepage. */}
+          <Route path="/vdd-elite" element={ELITE_ENABLED ? <EliteCalculatorPage /> : <Navigate to="/" replace />} />
+          <Route path="/calculator" element={<Navigate to={ELITE_ENABLED ? '/vdd-elite' : '/'} replace />} />
 
           {/* Main site pages — with Header + Footer */}
           <Route element={<MainLayout />}>

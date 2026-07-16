@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useReveal, useCountUp } from '../hooks/useReveal';
 import EliteCardVisual from '../components/EliteCardVisual';
+import { ELITE_ENABLED } from '../config/features';
 import { OUTLETS, getMapUrl } from '../data';
 import {
     CARD_FEE, formatCurrency, getMultiplierMessage,
@@ -916,7 +917,7 @@ const HomePage = () => (
             <Story />
             <Monks />
             <Community />
-            <EliteCalculator />
+            {ELITE_ENABLED && <EliteCalculator />}
             <Outlets />
             <Franchise />
         </main>
