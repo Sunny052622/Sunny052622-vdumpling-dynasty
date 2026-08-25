@@ -38,3 +38,5 @@ jobs:
           local-dir: dist/
           # FTP account root is already public_html — deploy to it directly
           server-dir: ./
+          # Hostinger's FTP is occasionally slow to answer — wait up to 60s
+          timeout: 60000
