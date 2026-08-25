@@ -337,7 +337,7 @@ const Stats = () => {
         <section ref={ref} className="relative bg-rice py-14 sm:py-20">
             <div className="max-w-6xl mx-auto px-5 grid grid-cols-2 lg:grid-cols-4 gap-y-10">
                 <Stat end={90} suffix=" ft²" label="Where it all began" delay="0s" />
-                <Stat end={4} suffix="" label="Outlets & growing" delay="0.1s" />
+                <Stat end={5} suffix="" label="Outlets & growing" delay="0.1s" />
                 <Stat end={70000} suffix="+" label="Brands outshone · Swiggy '25" delay="0.2s" />
                 <Stat end={130} suffix="+" label="Dishes on the menu" delay="0.3s" />
             </div>
@@ -807,7 +807,7 @@ const Outlets = () => {
                 {Array.from({ length: 80 }).map((_, i) => <i key={i} />)}
             </div>
             <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-4">
-                <p className="rv text-crimson font-bold tracking-mega uppercase text-xs mb-3">Four steamers live — a fifth on the way</p>
+                <p className="rv text-crimson font-bold tracking-mega uppercase text-xs mb-3">Five steamers, zero excuses</p>
                 <h2 className="rv font-display font-extrabold text-ink text-4xl sm:text-6xl leading-[1.02] tracking-tight" style={{ '--rv-delay': '0.1s' }}>
                     Find your <span className="text-crimson">nearest Mo:Mo.</span>
                 </h2>

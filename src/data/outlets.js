@@ -43,9 +43,9 @@ export const OUTLETS = [
         name: 'VDD Jatni',
         address: 'VDumpling Dynasty, Nr Union Bank, Bali Chhak Sahi, Jatni, Khordha, Odisha, India - 752050',
         shortAddress: 'Nr Union Bank, Bali Chhak Sahi, Jatni, Khordha - 752050',
-        mapQuery: 'Union Bank Bali Chhak Sahi Jatni Khordha',
+        mapQuery: 'VDumpling Dynasty Union Bank Bali Chhak Sahi Jatni Khordha',
+        // orderUrl: add Jatni's Petpooja link here to enable online ordering for it
         borderColor: 'nepal-red',
-        comingSoon: true, // not open yet — shown disabled across the site
     },
 ];
 

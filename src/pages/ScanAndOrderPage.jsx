@@ -195,7 +195,7 @@ const OutletOverlay = ({ isOpen, onClose }) => {
           <button onClick={onClose} className="text-white/80 hover:text-white p-1" aria-label="Close"><X size={22} /></button>
         </div>
         <div className="p-4 space-y-3">
-          {OUTLETS.filter(o => !o.comingSoon).map(outlet => {
+          {OUTLETS.filter(o => !o.comingSoon && o.orderUrl).map(outlet => {
             const c = OUTLET_COLORS[outlet.id] || OUTLET_COLORS.kalinganagar;
             return (
               <button key={outlet.id} onClick={() => handleSelect(outlet)}
